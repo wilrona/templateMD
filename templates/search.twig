@@ -1,0 +1,55 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="main-container container pt-40" id="main-container">
+
+        <!-- Content -->
+        <div class="row">
+
+            <!-- Posts -->
+            <div class="col-lg-8 blog__content mb-72">
+                <h1 class="page-title">Resultat de recherche pour : {{ title }}</h1>
+
+                {% for post in posts %}
+                <article class="entry card post-list">
+                    <div class="entry__img-holder post-list__img-holder card__img-holder" style="background-image: url({% if post.thumbnail %}{{ post.thumbnail.src | resize(401, 241) }}{% else %}{{ site.theme.link }}/img/image-not-found.png{% endif %})">
+                        <a href="{{ post.link }}" class="thumb-url"></a>
+                        <img src="{% if post.thumbnail %}{{ post.thumbnail.src | resize(401, 241) }}{% else %}{{ site.theme.link }}/img/image-not-found.png{% endif %}" alt="" class="entry__img d-none">
+                        <span class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--red">
+                            {{ post.terms( {query:{taxonomy:'category', orderby:'name', order: 'ASC'}} )[0] }}
+                        </span>
+                    </div>
+
+                    <div class="entry__body post-list__body card__body">
+                        <div class="entry__header">
+                            <h2 class="entry__title">
+                                <a href="{{ post.link }}">{{ post.title }}</a>
+                            </h2>
+                            <ul class="entry__meta">
+                                <li class="entry__meta-date">
+                                    Publie le Jan 21, 2018
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="entry__excerpt">
+                            <p>
+                                {{ post.content | trim_word(40) }}
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+
+                {% include 'pagination.twig' %}
+            </div> <!-- end posts -->
+
+            <!-- Sidebar -->
+            <aside class="col-lg-4 sidebar sidebar--right">
+
+                {{ sidebar_widgets }}
+
+            </aside> <!-- end sidebar -->
+
+        </div> <!-- end content -->
+    </div> <!-- end main container -->
+{% endblock %}

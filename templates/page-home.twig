@@ -1,0 +1,72 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+
+    <!-- Trending Now -->
+    <div class="container">
+        {{ home_header_widgets }}
+    </div>
+
+
+    <!-- Featured Posts Grid -->
+    <section class="featured-posts-grid">
+        <div class="container">
+            <div class="row row-8">
+
+                {{ home_une_widgets }}
+
+            </div>
+        </div>
+    </section> <!-- end featured posts grid -->
+
+
+
+    <div class="main-container container pt-24" id="main-container">
+
+        <!-- Content -->
+        <div class="row">
+
+            <!-- Posts -->
+            <div class="col-lg-8 blog__content">
+                {{ home_center_widgets }}
+            </div> <!-- end posts -->
+
+            <!-- Sidebar -->
+            <aside class="col-lg-4 sidebar sidebar--right">
+                {{ home_sidebar_widgets }}
+            </aside> <!-- end sidebar -->
+
+        </div> <!-- end content -->
+
+        {{ home_section_area_widgets }}
+
+        <!-- Content Secondary -->
+        <div class="row">
+
+            <!-- Posts -->
+            <div class="col-lg-8 blog__content mb-72">
+
+                {{ home_section_area_footer_left_widgets }}
+
+            </div> <!-- end posts -->
+
+            <!-- Sidebar 1 -->
+            <aside class="col-lg-4 sidebar sidebar--1 sidebar--right">
+
+                {{ home_section_area_footer_right_widgets }}
+
+{#                <!-- Widget Ad 300 -->#}
+{#                <aside class="widget widget_media_image">#}
+{#                    <a href="#">#}
+{#                        <img src="img/content/placeholder_336.jpg" alt="">#}
+{#                    </a>#}
+{#                </aside> <!-- end widget ad 300 -->#}
+
+            </aside> <!-- end sidebar 1 -->
+        </div> <!-- content secondary -->
+
+
+    </div> <!-- end main container -->
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.twig" %}
+
+
+{% block content %}
+
+    <!-- Breadcrumbs -->
+    <div class="container">
+        <ul class="breadcrumbs">
+            {%  for key, menu in breadcrumbs %}
+                <li class="breadcrumbs__item text-lowercase {% if menu.current %} breadcrumbs__item--current {% endif %}">
+                    {% if menu.current %}
+                        {{ menu.text }}
+                    {% else %}
+                        <a href="{{ menu.href }}" class="breadcrumbs__url">{{ menu.text }}</a>
+                    {% endif %}
+                </li>
+            {%  endfor %}
+        </ul>
+    </div>
+
+    <div class="main-container container" id="main-container">
+
+        <!-- Content -->
+        <div class="row">
+
+            <!-- Posts -->
+            <div class="col-lg-8 blog__content mb-72">
+                <h1 class="page-title">{{ tax.name }}</h1>
+
+                {{ top_cat_widget }}
+
+                <div class="row card-row">
+                    {% for post in posts %}
+                    <div class="col-md-6">
+                        <article class="entry card">
+                            <div class="entry__img-holder card__img-holder">
+                                <a href="{{ post.link }}">
+                                    <div class="thumb-container thumb-70">
+                                        <img data-src="{{ post.thumbnail.src | resize(386, 270) }}" src="{{ site.theme.link }}/img/image-not-found.png" class="entry__img lazyload" alt="" />
+                                    </div>
+                                </a>
+                                <span class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--red">
+                                    {{ post.terms( {query:{taxonomy:'category', orderby:'name', order: 'ASC'}} )[0] }}
+                                </span>
+                            </div>
+
+                            <div class="entry__body card__body">
+                                <div class="entry__header">
+
+                                    <h2 class="entry__title crop-text-2">
+                                        <a href="{{ post.link }}">{{ post.post_title }}</a>
+                                    </h2>
+                                    <ul class="entry__meta">
+{#                                        <li class="entry__meta-author">#}
+{#                                            <span>by</span>#}
+{#                                            <a href="#">DeoThemes</a>#}
+{#                                        </li>#}
+                                        <li class="entry__meta-date">
+                                            Publié le {{ post.date('j F Y') }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {{ bottom_cat_widget }}
+
+                {% include 'pagination.twig' %}
+            </div> <!-- end posts -->
+
+            <!-- Sidebar -->
+            <aside class="col-lg-4 sidebar sidebar--right">
+
+
+                {{ sidebar_widgets }}
+
+
+
+            </aside> <!-- end sidebar -->
+
+        </div> <!-- end content -->
+    </div> <!-- end main container -->
+
+{% endblock %}

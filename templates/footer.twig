@@ -1,0 +1,67 @@
+<!-- Footer -->
+<footer class="footer bg-white">
+    <div class="container">
+        <div class="footer__widgets">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6">
+                    <aside class="widget widget-logo">
+                        <a href="{{ site.url }}">
+                            <img src="{{ Image(options.logo) }}" srcset="{{ Image(options.logo) }} 1x, {{ Image(options.logo) }} 2x" class="logo__img" alt="">
+                        </a>
+                        <p class="copyright">
+                            © 2018 Deus | Made by <a href="https://deothemes.com">DeoThemes</a>
+                        </p>
+                        <div class="socials socials--large socials--rounded mb-24">
+                            {% if options.facebook %}
+                                <a class="social social-facebook" href="{{ options.facebook }}" target="_blank" aria-label="facebook">
+                                    <i class="ui-facebook"></i>
+                                </a>
+                            {% endif %}
+
+                            {% if options.twitter %}
+                                <a class="social social-twitter" href="{{ options.twitter }}" target="_blank" aria-label="twitter">
+                                    <i class="ui-twitter"></i>
+                                </a>
+                            {% endif %}
+
+                            {% if options.youtube %}
+                                <a class="social social-youtube" href="{{ options.youtube }}" target="_blank" aria-label="youtube">
+                                    <i class="ui-youtube"></i>
+                                </a>
+                            {% endif %}
+
+                            {% if options.instagram %}
+                                <a class="social social-instagram" href="{{ options.instagram }}" target="_blank" aria-label="instagram">
+                                    <i class="ui-instagram"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </aside>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <aside class="widget widget_nav_menu">
+                        <h4 class="widget-title">Liens Rapide</h4>
+                        <ul>
+                            {% for item in footer.get_items %}
+                                <li class="{{item.classes | join(' ')}}">
+                                    <a href="{{item.get_link}}">{{item.title}}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </aside>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    {{ footer_right }}
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end container -->
+</footer> <!-- end footer -->
+
+<div id="back-to-top">
+    <a href="#top" aria-label="Go to top"><i class="ui-arrow-up"></i></a>
+</div>

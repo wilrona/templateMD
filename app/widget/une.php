@@ -32,9 +32,25 @@ class BestNews_Widget extends BaseWidget
 
         $title = apply_filters( 'widget_title', $fields['title'] );
 
+        $posts_per_page = 4;
+        $posts_with_une = [];
+
         $args = array(
             'post_type' => 'post',
-            'posts_per_page' => 4,
+            'posts_per_page' => $posts_per_page,
+            'orderby'        => 'date',
+            'order'          => 'DESC',
+            'meta_query' => array(
+                array(
+                    'key'     => 'une',
+                    'compare' => '==',
+                    'value'   => true
+                ),
+                array(
+                    'key' => 'une',
+                    'compare' => 'EXISTS'
+                ),
+            ),
         );
 
         $categories = [];
@@ -48,7 +64,57 @@ class BestNews_Widget extends BaseWidget
             $args['cat'] = $categories;
         }
 
-        $posts = get_posts($args);
+        $posts_with_une = get_posts($args);
+
+        $posts_without_une = [];
+
+        if(count($posts_with_une) < $posts_per_page){
+
+            $args = array(
+                'fields' => 'ids',
+                'post_type' => 'post',
+                'posts_per_page' => $posts_per_page,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+                'meta_query' => array(
+                    array(
+                        'key'     => 'une',
+                        'compare' => '==',
+                        'value'   => true
+                    ),
+                    array(
+                        'key' => 'une',
+                        'compare' => 'EXISTS'
+                    ),
+                ),
+            );
+
+            $ids_with_me = get_posts($args);
+
+            $args = array(
+                'post_type' => 'post',
+                'posts_per_page' => ($posts_per_page - count($posts_with_une)),
+                'post__not_in' => $ids_with_me,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+            );
+
+            $categories = [];
+
+            if($fields['categories_bestnews'] && count($fields['categories_bestnews'])){
+                foreach ($fields['categories_bestnews'] as $cat):
+                    array_push($categories, intval($cat['categorie']));
+                endforeach;
+    
+    
+                $args['cat'] = $categories;
+            }
+
+            $posts_without_une = get_posts($args);
+
+        }
+
+        $posts = array_merge($posts_with_une, $posts_without_une);
         $key = 0;
 
         echo $args['before_widget'];
@@ -67,7 +133,7 @@ class BestNews_Widget extends BaseWidget
                     <div class="entry__img-holder post-list__img-holder card__img-holder" style="background-image: url(<?= get_the_post_thumbnail_url($post->ID) ? get_the_post_thumbnail_url($post->ID) : get_template_directory_uri().'/img/image-not-found.png' ?>)">
                         <a href="<?= get_permalink($post->ID) ?>" class="thumb-url"></a>
                         <?php if (get_post_thumbnail_id($post->ID)) :
-                            $img_url = wp_get_attachment_url(get_post_thumbnail_id($post->ID),'full');
+                            $img_url = wp_get_attachment_url(get_post_thumbnail_id($post->ID), 'full');
                             $image   = aq_resize( $img_url, 300, 200, true );
                             ?>
                             <img src="<?= $image ?>" alt="" class="entry__img d-none">
@@ -154,7 +220,7 @@ class BestNews_Widget extends BaseWidget
                                         $img_url = wp_get_attachment_url(get_post_thumbnail_id($post->ID),'full');
                                         $image   = aq_resize( $img_url, 604, 356, true );
                                 ?>
-                                    <img src="<?= $image ?>" alt="" class="entry__img">
+                                    <img src="<?= $image ? $image : $img_url ?>" alt="" class="entry__img">
                                 <?php else:  ?>
                                     <img src="<?= get_template_directory_uri().'/img/image-not-found.png' ?>" alt="" class="entry__img">
                                 <?php endif; ?>

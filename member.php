@@ -1,5 +1,5 @@
 <?php
-/* Template Name: Pade de membre */
+/* Template Name: Page de membre */
 
 use Timber\Timber;
 

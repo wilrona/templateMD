@@ -74,7 +74,7 @@ class BootsmoothSite extends TimberSite {
         add_action('admin_head', array($this, 'wp_asset_head_backend'));
         add_action('admin_footer', array($this, 'wp_asset_head_backend'));
 
-		parent::__construct();
+        parent::__construct();
 	}
 
 	function theme_option_page(){
@@ -96,6 +96,7 @@ class BootsmoothSite extends TimberSite {
     function custom_login_page(){
 
         $login_page  = get_permalink(tr_options_field('options.login_url'));
+        $profile_editor = get_permalink(tr_options_field('options.member_url'));
 
         if(tr_options_field('options.active_login_url')){
             $page_viewed = basename($_SERVER['REQUEST_URI']);
@@ -105,7 +106,12 @@ class BootsmoothSite extends TimberSite {
                 exit;
             }
             if(basename($_SERVER['REQUEST_URI']) === basename($login_page) && is_user_logged_in()){
-                exit(wp_redirect( home_url('/')));
+                $user = get_current_user_id();
+                if(!user_can($user, 'subscriber')){
+                    exit(wp_redirect(home_url('/wp-admin')));
+                }else{
+                    exit(wp_redirect($profile_editor));
+                }
             }
         }
     }
@@ -142,10 +148,11 @@ class BootsmoothSite extends TimberSite {
 			array(
 				'headerWeb' => 'Menu pour la version web',
 				'footer' => 'Menu Footer lien rapide',
-                'headerMobile' => 'Menu pour la version mobile',
+                'headerMobileWeb' => 'Menu pour la version web mobile',
                 'headerTop' => 'Menu plus haut a gauche',
                 'menuTopLogin' => 'Menu plus haut a droite',
                 'menuMember' => 'Menu des membres connectés',
+                'menuTabMobileApp' => 'Menu pour les tabs de la page d\'accueil de l\'application mobile',
 			)
 		);
 	}
@@ -154,7 +161,7 @@ class BootsmoothSite extends TimberSite {
 	function add_to_context( $context ) {
 		$context['menu_web'] = new TimberMenu('headerWeb');
 		$context['footer'] = new TimberMenu('footer');
-		$context['menu_mobile'] = new TimberMenu('headerMobile');
+		$context['menu_mobile_web'] = new TimberMenu('headerMobileWeb');
 		$context['menu_top'] = new TimberMenu('headerTop');
 		$context['menu_top_login'] = new TimberMenu('menuTopLogin');
 		$context['menu_member'] = new TimberMenu('menuMember');
@@ -218,6 +225,7 @@ class BootsmoothSite extends TimberSite {
         if ( function_exists('register_sidebar') ) {
             register_sidebar(array(
                     'name' => 'Home header',
+                    'id' => 'home_header',
                     'before_widget' => '<div class="home-header-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -227,6 +235,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Home A la une',
+                    'id' => 'home_a_la_une',
                     'before_widget' => '<div class="home-une-widget col-lg-12">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -237,6 +246,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Home center 1',
+                    'id' => 'home_center_1',
                     'before_widget' => '<div class="home-center-one-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -246,6 +256,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Home sidebar',
+                    'id' => 'home_sidebar',
                     'before_widget' => '<div class="home-sidebar-widget" style="margin-bottom: 30px;">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -255,6 +266,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Home area center',
+                    'id' => 'home_area_center',
                     'before_widget' => '<div class="home-section-center-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -264,6 +276,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Home area footer left',
+                    'id' => 'home_area_footer_left',
                     'before_widget' => '<div class="home-area-footer-left-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -273,6 +286,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Home area footer right',
+                    'id' => 'home_area_footer_right',
                     'before_widget' => '<div class="home-area-footer-right-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -282,6 +296,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Footer right',
+                    'id' => 'footer_right',
                     'before_widget' => '<div class="footer-right-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -291,6 +306,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Sidebar',
+                    'id' => 'sidebar',
                     'before_widget' => '<div class="sidebar-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -300,6 +316,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Top category',
+                    'id' => 'top_category',
                     'before_widget' => '<div class="top-category-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -309,6 +326,7 @@ class BootsmoothSite extends TimberSite {
 
             register_sidebar(array(
                     'name' => 'Bottom category',
+                    'id' => 'bottom_category',
                     'before_widget' => '<div class="bottom-category-widget">',
                     'after_widget' => '</div>',
                     'before_title' => '<div class="uk-text-large">',
@@ -413,8 +431,6 @@ class BootsmoothSite extends TimberSite {
         wp_register_script('footer-backend', get_stylesheet_directory_uri() . '/admin_js/footer_backend.js', '', '1', true);
         wp_enqueue_script('footer-backend');
     }
-
-
 
 }
 

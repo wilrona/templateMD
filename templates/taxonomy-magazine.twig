@@ -1,0 +1,168 @@
+{% extends "base.twig" %}
+
+
+{% block content %}
+
+    <!-- Breadcrumbs -->
+    <div class="container">
+        <ul class="breadcrumbs">
+            {%  for key, menu in breadcrumbs %}
+                <li class="breadcrumbs__item text-lowercase {% if menu.current %} breadcrumbs__item--current {% endif %}">
+                    {% if menu.current %}
+                        Magazines :  No {{ menu.text }}
+                    {% else %}
+                         <a href="{{ menu.href }}" class="breadcrumbs__url">{{ menu.text }}</a>
+                    {% endif %}
+                </li>
+            {%  endfor %}
+        </ul>
+    </div>
+
+    <div class="main-container container" id="main-container">
+
+        <!-- Content -->
+        <div class="row">
+
+            <!-- Posts -->
+            <div class="col-lg-8 blog__content mb-72">
+
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <img src="{{ Image(tax.image).src }}" alt="" class="w-full">
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        <h1 class="page-title">{{ tax.name }}</h1>
+                        {% if can_download and tax.magazine_pdf %}
+                            <div class="mb-4">
+                                <a href="{{ function('wp_get_attachment_url', tax.magazine_pdf) }}" target="_blank" class="btn px-4">
+                                    <span>Télécharge le magazine en PDF</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                        <div style="text-align: justify !important;">
+                            {{ tax.description }}
+                        </div>
+                    </div>
+
+                </div>
+
+                {% if not can_download %}
+
+                    <div class="rcp-box my-4">
+                        <div class="row">
+                            <div class="col-12">
+
+                                    <div class="d-flex justify-content-center">
+
+                                        <h3 class="text-center mb-4 w-50">Le contenu de ce magazine est reservé au membre</h3>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        {% if not function('get_current_user_id') %}
+                                            <p><a class="btn btn-lg btn-color p-4" href="/membre">Inscrivez-vous</a></p>
+                                        {% else %}
+                                            <p><a class="btn btn-lg btn-color p-4" href="/membre/votre-abonnement/">Prenez un abonnement</a></p>
+                                        {% endif %}
+                                    </div>
+                                    {% if not function("get_current_user_id") %}
+                                        <div class="text-center col-12 my-2">
+                                            <p><b>OU</b></p>
+                                        </div>
+                                        <div class="col-12 text-center">
+                                            <p><a class="btn btn-lg btn-color p-4" href="/wp-login.php">Connectez-vous</a></p>
+                                        </div>
+                                    {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {% if download_id %}
+                        <div class="rcp-box my-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 class="text-center">Obtenez le magazine en pdf</h3>
+
+                                    <div class="col-12 text-center h-100 d-flex align-items-center justify-content-center">
+                                        <div>
+                                            <p>
+                                                <a class="btn btn-lg p-4" target="_blank" href="{{site.link}}?iproduct={{ download_id }}">
+                                                    Payez votre magazine PDF <br>
+                                                    <span style="font-size: 30px">{{ product_price }}
+                                                        {% if function("function_exists", "isell_get_options") %}
+                                                            {% set option = function("isell_get_options")  %}
+                                                            {{ option.store.currency }}
+                                                        {% endif %}
+                                                    </span>
+                                                </a>
+                                            </p>
+                                            <br>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endif %}
+
+                {% endif %}
+
+                {{ top_cat_widget }}
+
+                <div class="row card-row">
+                    <div class="col-lg-12">
+                        <h2 class="" style="margin-top: 40px;">Les articles du magazines {{ tax.numero }}</h2>
+                    </div>
+                    {% for post in posts %}
+                    <div class="col-md-6">
+                        <article class="entry card">
+                            <div class="entry__img-holder card__img-holder">
+                                <a href="{{ post.link }}">
+                                    <div class="thumb-container thumb-70">
+                                        <img data-src="{{ post.thumbnail.src | resize(386, 270) }}" src="{{ site.theme.link }}/img/image-not-found.png" class="entry__img lazyload" alt="" />
+                                    </div>
+                                </a>
+                                <span class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--red">
+                                    {{ post.terms( {query:{taxonomy:'category', orderby:'name', order: 'ASC'}} )[0] }}
+                                </span>
+                            </div>
+
+                            <div class="entry__body card__body">
+                                <div class="entry__header">
+
+                                    <h2 class="entry__title crop-text-2">
+                                        <a href="{{ post.link }}">{{ post.post_title }}</a>
+                                    </h2>
+                                    <ul class="entry__meta">
+{#                                        <li class="entry__meta-author">#}
+{#                                            <span>by</span>#}
+{#                                            <a href="#">DeoThemes</a>#}
+{#                                        </li>#}
+                                        <li class="entry__meta-date">
+                                            Publié le {{ post.date('j F Y') }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {{ bottom_cat_widget }}
+
+                {% include 'pagination.twig' %}
+            </div> <!-- end posts -->
+
+            <!-- Sidebar -->
+            <aside class="col-lg-4 sidebar sidebar--right">
+
+                {{ sidebar_widgets }}
+
+            </aside> <!-- end sidebar -->
+
+        </div> <!-- end content -->
+    </div> <!-- end main container -->
+
+{% endblock %}

@@ -31,9 +31,17 @@
 					<article class="entry mb-0">
 
 						<div class="single-post__entry-header entry__header">
+
 							<span class="entry__meta-category entry__meta-category--label entry__meta-category--red">
 								{{ post.terms( {query:{taxonomy:'category', orderby:'name', order: 'ASC'}} )[0] }}
 							</span>
+							{% if(post.terms( {query:{taxonomy:'magazine', orderby:'name', order: 'ASC'}} )) %}
+								<a href="{{ post.terms( {query:{taxonomy:'magazine', orderby:'name', order: 'ASC'}} )[0].link }}">
+									<span class="entry__meta-category entry__meta-category--label entry__meta-category--blue">
+									Parution dans le magazine Numero {{ post.terms( {query:{taxonomy:'magazine', orderby:'name', order: 'ASC'}} )[0].numero }}
+									</span>
+								</a>
+							{% endif %}
 							<h1 class="single-post__entry-title">
 								{{ post.title }}
 							</h1>
@@ -55,11 +63,18 @@
 										<i class="ui-eye"></i>
 										<span>{{ function('pp_getPostViews', post.ID) }} vue(s)</span>
 									</li>
-									<li class="entry__meta-comments">
-										<a href="#">
-											<i class="ui-chat-empty"></i>{{ post.comments|length }}
+									{% if post.download_file and post.user_can_read %}
+									<li class="entry__meta-views">
+										<a href="{{ post.download_file }}" target="_blank">
+											<span>Télécharger l'article en PDF</span>
 										</a>
 									</li>
+									{% endif %}
+{#									<li class="entry__meta-comments">#}
+{#										<a href="#">#}
+{#											<i class="ui-chat-empty"></i>{{ post.comments|length }}#}
+{#										</a>#}
+{#									</li>#}
 								</ul>
 							</div>
 						</div> <!-- end entry header -->
@@ -79,71 +94,86 @@
 								</div>
 							</div> <!-- share -->
 
-							<div class="entry__article relative p">
+							<div class="entry__article relative p" style="text-align: justify !important;">
+								{% if post.download_file and post.user_can_read %}
+									<div class="mb-4">
+										<a href="{{ post.download_file }}" target="_blank" class="btn px-4">
+											<span>Télécharge le magazine en PDF</span>
+										</a>
+									</div>
+								{% endif %}
 
-{#								{% if function('rcp_is_restricted_content', post.ID) %}#}
+								{{ post.content }}
 
-{#									{% if function('rcp_user_has_active_membership') or function('rcp_user_has_paid_membership') %}#}
+								{% if not post.user_can_read %}
 
-{#											{{ post.content | simple_trim_word(1000) }}#}
+									<div class="rcp-box my-4">
+										<div class="row">
+											<div class="col-12">
 
-{#											<div class="rcp-box">#}
+												<div class="d-flex justify-content-center">
 
-{#												{% if function('rcp_user_has_active_membership') %}#}
+													<h3 class="text-center mb-4">Le contenu de l'article est reservé au membre</h3>
+												</div>
 
-{#												{% endif %}#}
+												<div class="col-12 text-center">
+													{% if not function('get_current_user_id') %}
+														<p><a class="btn btn-lg btn-color p-4" href="/membre">Inscrivez-vous</a></p>
+													{% else %}
+														<p><a class="btn btn-lg btn-color p-4" href="/membre/votre-abonnement/">Prenez un abonnement</a></p>
+													{% endif %}
+												</div>
+												{% if not function("get_current_user_id") %}
+													<div class="text-center col-12 my-2">
+														<p><b>OU</b></p>
+													</div>
+													<div class="col-12 text-center">
+														<p><a class="btn btn-lg btn-color p-4" href="/wp-login.php">Connectez-vous</a></p>
+													</div>
+												{% endif %}
+											</div>
 
-{#												{% if function('rcp_user_has_paid_membership') %}#}
+										</div>
+									</div>
 
-{#												{% endif %}#}
+									{% if download_id %}
+										<div class="rcp-box my-4">
+											<div class="row">
+												<div class="col-12">
+													<h3 class="text-center">Obtenez l'article en pdf</h3>
 
-{#											</div>#}
+													<div class="col-12 text-center h-100 d-flex align-items-center justify-content-center">
+														<div>
+															<p>
+																<a class="btn btn-lg p-4" target="_blank" href="{{site.link}}?iproduct={{ download_id }}">
+																	Payez votre article PDF <br>
+																	<span style="font-size: 30px">{{ product_price }}
+																		{% if function("function_exists", "isell_get_options") %}
+																			{% set option = function("isell_get_options")  %}
+																			{{ option.store.currency }}
+																		{% endif %}
+                                                    				</span>
+																</a>
+															</p>
+															<br>
 
-{#									{% else %}#}
+														</div>
+													</div>
+												</div>
 
-{#										{{ post.content }}#}
+											</div>
+										</div>
+									{% endif %}
 
-{#									{% endif %}#}
-
-{#								{% else %}#}
-
-									{{ post.content }}
-
-{#								{% endif %}#}
+								{% endif %}
 
 							</div>
 						</div> <!-- end entry article wrap -->
 
-
-{#						<!-- Newsletter Wide -->#}
-{#						<div class="newsletter-wide">#}
-{#							<div class="widget widget_mc4wp_form_widget">#}
-{#								<div class="newsletter-wide__container">#}
-{#									<div class="newsletter-wide__text-holder">#}
-{#										<p class="newsletter-wide__text">#}
-{#											<i class="ui-email newsletter__icon"></i>#}
-{#											Subscribe for our daily news#}
-{#										</p>#}
-{#									</div>#}
-{#									<div class="newsletter-wide__form">#}
-{#										<form class="mc4wp-form" method="post">#}
-{#											<div class="mc4wp-form-fields">#}
-{#												<div class="form-group">#}
-{#													<input type="email" name="EMAIL" placeholder="Your email" required="">#}
-{#												</div>#}
-{#												<div class="form-group">#}
-{#													<input type="submit" class="btn btn-lg btn-color" value="Sign Up">#}
-{#												</div>#}
-{#											</div>#}
-{#										</form>#}
-{#									</div>#}
-{#								</div>#}
-{#							</div>#}
-{#						</div> <!-- end newsletter wide -->#}
-
 						<!-- Prev / Next Post -->
 						<nav class="entry-navigation">
 							<div class="clearfix">
+								{% if post.prev %}
 								<div class="entry-navigation--left">
 									<i class="ui-arrow-left"></i>
 									<span class="entry-navigation__label">Article Precedent</span>
@@ -151,6 +181,9 @@
 										<a href="{{ post.prev.link }}" rel="next">{{ post.prev.title }}</a>
 									</div>
 								</div>
+								{% endif %}
+
+								{% if post.next %}
 								<div class="entry-navigation--right">
 									<span class="entry-navigation__label">Article Suivant</span>
 									<i class="ui-arrow-right"></i>
@@ -158,6 +191,7 @@
 										<a href="{{ post.next.link }}" rel="prev">{{ post.next.title }}</a>
 									</div>
 								</div>
+								{% endif %}
 							</div>
 						</nav>
 

@@ -38,7 +38,9 @@ $form = tr_form()->useJson()->setGroup($this->getName());
         echo '<h2 class="uk-padding-remove-bottom uk-text-center uk-margin-top">Définition des pages </h2>';
 
         echo $form->search('login_url')->setLabel('Lien de page de login')->setPostType('page');
+        echo $form->search('member_url')->setLabel('Lien de page d\'espace membre')->setPostType('page');
         echo $form->checkbox('active_login_url')->setLabel('Activer la page de login');
+
     };
 
     // Save

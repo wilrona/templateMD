@@ -38,7 +38,7 @@ class Magazine_Widget extends BaseWidget
         ) );
         $latest_edition = $edition[0];
 
-        if(get_term_meta($latest_edition->term_id, 'show_home', true)) :
+        if(get_term_meta($latest_edition->term_id, 'show_home', true) && get_term_meta($latest_edition->term_id, 'online', true)) :
 
         echo $args['before_widget'];
 

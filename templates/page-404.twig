@@ -1,9 +1,31 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<div class="uk-container uk-margin-top uk-margin-bottom">
-	<h1>Page not found.</h1>
-	<h2>We could not find what you're looking for.</h2>        
-</div>
+	<div class="main-container container pt-80 pb-80" id="main-container">
+		<!-- post content -->
+		<div class="blog__content mb-72">
+			<div class="container text-center">
+				<h1 class="page-404-number">404</h1>
+				<h2>Page non trouvée</h2>
+				<p>Ne vous inquiétez pas! Remettons-nous sur la bonne voie. Peut-être que la recherche peut vous aider</p>
+
+				<div class="row justify-content-center mt-40">
+
+					<div class="col-md-6">
+						<!-- Search form -->
+						<form role="search" method="get" class="search-form relative" action="{{site.link}}">
+							<input type="search" class="widget-search-input mb-0" placeholder="Rechercher un  article" value="{{ function('get_search_query') }}" name="s">
+							<button type="submit" class="widget-search-button btn btn-color"><i class="ui-search widget-search-icon"></i></button>
+						</form>
+
+						<!-- Back to home -->
+						<a href="{{ site.link }}" class="btn btn-lg btn-light mt-40"><span>Retour à l'accueil</span></a>
+					</div>
+
+				</div> <!-- end row -->
+
+			</div> <!-- end container -->
+		</div> <!-- end post content -->
+	</div> <!-- end main container -->
 
 {% endblock %}

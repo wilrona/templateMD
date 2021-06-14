@@ -71,10 +71,14 @@ Description: WP NotreAfrik Theme
     margin: 25px 0 !important;
 }
 
+.entry__article{
+    width: 100% !important;
+}
+
 .rcp-box {
     font-size: 20px;
-    min-height: 50%;
-    width: 98%;
+    /*min-height: 50%;*/
+    width: 100% !important;
     background: #fff;
     border: 1px #f0f0f0 solid;
     border-radius: 20px;

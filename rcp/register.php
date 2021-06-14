@@ -210,6 +210,10 @@ rcp_show_error_messages( 'register' ); ?>
 
 	<p id="rcp_submit_wrap">
 		<input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
-		<input type="submit" name="rcp_submit_registration" id="rcp_submit" class="rcp-button" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Register', 'rcp' ) ) ); ?>"/>
+        <?php if( ! is_user_logged_in() ) { ?>
+		    <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="rcp-button" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Register', 'rcp' ) ) ); ?>"/>
+        <?php } else { ?>
+            <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="rcp-button" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Payer', 'rcp' ) ) ); ?>"/>
+        <?php } ?>
 	</p>
 </form>

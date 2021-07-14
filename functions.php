@@ -5,7 +5,7 @@ use Timber\Twig_Filter;
 
 include('admin-ui/admin-ui.php');
 
-include('typerocket/init.php');
+include('app/src/init.php');
 
 include('app/init.php');
 
@@ -62,7 +62,7 @@ class BootsmoothSite extends TimberSite {
 //		add_action( 'init', array( $this, 'register_post_types' ) );
 //		add_action( 'init', array( $this, 'register_taxonomies' ) );
 
-        add_action( 'init', array( $this, 'register_widget_areas' ) );
+        // add_action( 'init', array( $this, 'register_widget_areas' ) );
         add_action( 'init', array( $this, 'custom_login_page' ) );
 		add_action('widgets_init', array($this, 'register_widget_TR'));
 		add_action( 'init', array( $this, 'register_navigation_menus') );
@@ -95,34 +95,15 @@ class BootsmoothSite extends TimberSite {
 
     function custom_login_page(){
 
-        $login_page  = get_permalink(tr_options_field('options.login_url'));
-        $profile_editor = get_permalink(tr_options_field('options.member_url'));
-
-        if(tr_options_field('options.active_login_url')){
-            $page_viewed = basename($_SERVER['REQUEST_URI']);
-
-            if(str_contains($page_viewed, 'wp-login.php') && $_SERVER['REQUEST_METHOD'] == 'GET' && !is_user_logged_in()) {
-                wp_redirect($login_page);
-                exit;
-            }
-            if(basename($_SERVER['REQUEST_URI']) === basename($login_page) && is_user_logged_in()){
-                $user = get_current_user_id();
-                if(!user_can($user, 'subscriber')){
-                    exit(wp_redirect(home_url('/wp-admin')));
-                }else{
-                    exit(wp_redirect($profile_editor));
-                }
-            }
-        }
     }
 
     function remove_menus_to_admin(){
         //	remove_menu_page( 'index.php' );                  //Dashboard
         //	remove_menu_page( 'jetpack' );                    //Jetpack*
-//        	remove_menu_page( 'edit.php' );                   //Posts
+        	remove_menu_page( 'edit.php' );                   //Posts
         //	remove_menu_page('upload.php');                 //Media
         //	remove_menu_page( 'edit.php?post_type=page' );    //Pages
-//          remove_menu_page('edit-comments.php');          //Comments
+          remove_menu_page('edit-comments.php');          //Comments
         //	remove_menu_page( 'themes.php' );                 //Appearance
         //	remove_menu_page( 'plugins.php' );                //Plugins
         //	remove_menu_page( 'users.php' );                  //Users
@@ -146,46 +127,29 @@ class BootsmoothSite extends TimberSite {
 		// Register navigation menus
 		register_nav_menus(
 			array(
-				'headerWeb' => 'Menu pour la version web',
-				'footer' => 'Menu Footer lien rapide',
-                'headerMobileWeb' => 'Menu pour la version web mobile',
-                'headerTop' => 'Menu plus haut a gauche',
-                'menuTopLogin' => 'Menu plus haut a droite',
-                'menuMember' => 'Menu des membres connectés',
-                'menuTabMobileApp' => 'Menu pour les tabs de la page d\'accueil de l\'application mobile',
+				'hl' => 'Menu haut a gauche',
+                'hr' => 'Menu haut a droite',
+                'f1' => 'Menu Footer',
+                'mobile' => 'Menu responsive',
 			)
 		);
 	}
 
 	// register custom context variables
 	function add_to_context( $context ) {
-		$context['menu_web'] = new TimberMenu('headerWeb');
-		$context['footer'] = new TimberMenu('footer');
-		$context['menu_mobile_web'] = new TimberMenu('headerMobileWeb');
-		$context['menu_top'] = new TimberMenu('headerTop');
-		$context['menu_top_login'] = new TimberMenu('menuTopLogin');
-		$context['menu_member'] = new TimberMenu('menuMember');
+		$context['menuHL'] = new TimberMenu('hl');
+		$context['menuHR'] = new TimberMenu('hr');
+        $context['menuF1'] = new TimberMenu('f1');
+        $context['menuMobile'] = new TimberMenu('mobile');
 		$context['site'] = $this;
 		$context['options'] = tr_options_field('options');
 		$context['admin_url'] = admin_url('admin-ajax.php');
 		$context['get'] = $_GET;
 		$context['post'] = $_POST;
 
-		$context['home_header_widgets'] = Timber::get_widgets( 'Home header' );
-		$context['home_une_widgets'] = Timber::get_widgets( 'Home A la une' );
-		$context['home_center_widgets'] = Timber::get_widgets( 'Home center 1' );
-		$context['home_sidebar_widgets'] = Timber::get_widgets( 'Home sidebar' );
-		$context['home_section_area_widgets'] = Timber::get_widgets( 'Home area center' );
-		$context['home_section_area_footer_left_widgets'] = Timber::get_widgets( 'Home area footer left' );
-		$context['home_section_area_footer_right_widgets'] = Timber::get_widgets( 'Home area footer right' );
-
-		$context['sidebar_widgets'] = Timber::get_widgets( 'Sidebar' );
-		$context['footer_right'] = Timber::get_widgets( 'Footer right' );
-
-        $context['top_cat_widget'] = Timber::get_widgets( 'Top category' );
-        $context['bottom_cat_widget'] = Timber::get_widgets( 'Bottom category' );
-
+		// $context['sidebar_widgets'] = Timber::get_widgets( 'Sidebar' );
 //		$context['breadcrumbs'] = wpd_nav_menu_breadcrumbs(new TimberMenu('headerWeb'));
+
 		$context['breadcrumbs'] = [];
         if(function_exists('yoast_breadcrumb') && !(is_home() || is_front_page())) {
             $context['breadcrumbs'] = get_crumb_array();
@@ -232,162 +196,37 @@ class BootsmoothSite extends TimberSite {
                     'after_title' => '</div>',
                 )
             );
-
-            register_sidebar(array(
-                    'name' => 'Home A la une',
-                    'id' => 'home_a_la_une',
-                    'before_widget' => '<div class="home-une-widget col-lg-12">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>',
-                )
-            );
-
-
-            register_sidebar(array(
-                    'name' => 'Home center 1',
-                    'id' => 'home_center_1',
-                    'before_widget' => '<div class="home-center-one-widget">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>',
-                )
-            );
-
-            register_sidebar(array(
-                    'name' => 'Home sidebar',
-                    'id' => 'home_sidebar',
-                    'before_widget' => '<div class="home-sidebar-widget" style="margin-bottom: 30px;">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>',
-                )
-            );
-
-            register_sidebar(array(
-                    'name' => 'Home area center',
-                    'id' => 'home_area_center',
-                    'before_widget' => '<div class="home-section-center-widget">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>',
-                )
-            );
-
-            register_sidebar(array(
-                    'name' => 'Home area footer left',
-                    'id' => 'home_area_footer_left',
-                    'before_widget' => '<div class="home-area-footer-left-widget">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>'
-                )
-            );
-
-            register_sidebar(array(
-                    'name' => 'Home area footer right',
-                    'id' => 'home_area_footer_right',
-                    'before_widget' => '<div class="home-area-footer-right-widget">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>'
-                )
-            );
-
-            register_sidebar(array(
-                    'name' => 'Footer right',
-                    'id' => 'footer_right',
-                    'before_widget' => '<div class="footer-right-widget">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>'
-                )
-            );
-
-            register_sidebar(array(
-                    'name' => 'Sidebar',
-                    'id' => 'sidebar',
-                    'before_widget' => '<div class="sidebar-widget">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>'
-                )
-            );
-
-            register_sidebar(array(
-                    'name' => 'Top category',
-                    'id' => 'top_category',
-                    'before_widget' => '<div class="top-category-widget">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>'
-                )
-            );
-
-            register_sidebar(array(
-                    'name' => 'Bottom category',
-                    'id' => 'bottom_category',
-                    'before_widget' => '<div class="bottom-category-widget">',
-                    'after_widget' => '</div>',
-                    'before_title' => '<div class="uk-text-large">',
-                    'after_title' => '</div>'
-                )
-            );
         }
     }
 
     function register_widget_TR(){
-        register_widget('FlashInfo_Widget');
-        register_widget('LastNew_Widget');
-        register_widget('BestNews_Widget');
-        register_widget('Magazine_Widget');
-        register_widget('Carousel_Widget');
-        register_widget('MultiCategory_Widget');
-        register_widget('Recommended_Widget');
-        register_widget('FromCategory_Widget');
-        register_widget('PostPopular_Widget');
+        // register_widget('FlashInfo_Widget');
     }
 
     function wp_asset_frontend(){
 
 	    // Ajout des elements en JavaScript
-        wp_register_script('lazysizes', get_stylesheet_directory_uri() . '/js/lazysizes.min.js', '', '1', false);
-        wp_register_script('jquery', get_stylesheet_directory_uri() . '/js/jquery.min.js', '', '1', true);
-        wp_register_script('bootstrap', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', '', '1', true);
-        wp_register_script('easing', get_stylesheet_directory_uri() . '/js/easing.min.js', '', '1', true);
-        wp_register_script('owl-carousel', get_stylesheet_directory_uri() . '/js/owl-carousel.min.js', '', '1', true);
-        wp_register_script('flickity', get_stylesheet_directory_uri() . '/js/flickity.pkgd.min.js', '', '1', true);
-        wp_register_script('jquery.newsTicker', get_stylesheet_directory_uri() . '/js/jquery.newsTicker.min.js', '', '1', true);
-        wp_register_script('jquery.sticky-kit', get_stylesheet_directory_uri() . '/js/jquery.sticky-kit.min.js', '', '1', true);
-        wp_register_script('modernizr', get_stylesheet_directory_uri() . '/js/modernizr.min.js', '', '1', true);
-        wp_register_script('scripts', get_stylesheet_directory_uri() . '/js/scripts.js', '', '1', true);
+        wp_register_script('uikit', get_stylesheet_directory_uri() . '/js/uikit.js', '', '1', true);
+        wp_register_script('uikit-icon', get_stylesheet_directory_uri() . '/js/uikit-icons.js', '', '1', true);
+        wp_register_script('app', get_stylesheet_directory_uri() . '/js/uikit-icons.js', '', '1', true);
+        wp_register_script('fontawesome', get_stylesheet_directory_uri() . '/fonts/fontawesome-free//js/all.js', '', '1', false);
 
 
 
-
-        wp_enqueue_script('lazysizes');
-        wp_enqueue_script('jquery');
-        wp_enqueue_script('bootstrap');
-        wp_enqueue_script('easing');
-        wp_enqueue_script('owl-carousel');
-        wp_enqueue_script('flickity');
-        wp_enqueue_script('jquery.sticky-kit');
-        wp_enqueue_script('jquery.newsTicker');
-        wp_enqueue_script('modernizr');
-        wp_enqueue_script('scripts');
-
+        wp_enqueue_script('uikit');
+        wp_enqueue_script('uikit-icon');
+        wp_enqueue_script('app');
+        wp_enqueue_script('fontawesome');
 
 
         // Ajout des elements en CSS
-        wp_register_style('bootstrap', get_stylesheet_directory_uri() . '/css/bootstrap.min.css', false, '1.0', 'all');
-        wp_register_style('fontIcon', get_stylesheet_directory_uri() . '/css/font-icons.css', false, '1.0', 'all');
-        wp_register_style('style', get_stylesheet_directory_uri() . '/css/style.css', false, '1.0', 'all');
-        wp_register_style('color_red', get_stylesheet_directory_uri() . '/css/colors/red.css', false, '1.0', 'all');
+        wp_register_style('uikit', get_stylesheet_directory_uri() . '/css/uikit.css', false, '1.0', 'all');
+        wp_register_style('app', get_stylesheet_directory_uri() . '/css/app.css', false, '1.0', 'all');
+        wp_register_style('fontawesome', get_stylesheet_directory_uri() . '/fonts/fontawesome-free/css/all.css', false, '1.0', 'all');
 
-        wp_enqueue_style('bootstrap');
-        wp_enqueue_style('fontIcon');
-        wp_enqueue_style('style');
-        wp_enqueue_style('color_red');
+        wp_enqueue_style('uikit');
+        wp_enqueue_style('app');
+        wp_enqueue_style('fontawesome');
 
     }
 

@@ -1,13 +1,13 @@
 :root {
 
-    --color-primary: #df071f;
+    --color-primary: #333333;
     --color-primary-rgba: 52, 126, 191;
     --color-secondary: #24A652;
     --color-regular: #414142;
     --color-light: #F8F9FD;
     --color: #fff;
     --lh: 1.5em;
-    --wp-admin-theme-color : #df071f;
+    --wp-admin-theme-color : #333333;
 }
 
 /* GENERAL */
@@ -555,6 +555,7 @@ div#dashboard_activity .subsubsub a {
 .postbox {
     border-radius: 6px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, .04);
+    margin: 20px 0;
 }
 
 .postbox.closed {

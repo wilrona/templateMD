@@ -20,27 +20,25 @@ $form = tr_form()->useJson()->setGroup($this->getName());
 
         echo $form->image('icon')->setLabel('Icone du site');
         echo $form->image('logo')->setLabel('Logo du site');
+        echo $form->editor('aboutFooter')->setLabel('Description de l\'entreprise en pied de page');
+        echo $form->image('imageFooter')->setLabel('Image de fond pour le formulaire du footer');
+        echo $form->text('form_footer')->setLabel('Formulaire du footer')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
 
     };
 
     $social = function () use ($form) {
 
-        echo '<h2 class="uk-padding-remove-bottom uk-text-center uk-margin-top">Social </h2>';
+        echo '<h2 class="uk-padding-remove-bottom uk-text-center uk-margin-top">Contact et Reseau Social </h2>';
 
         echo $form->text('facebook')->setLabel('Lien vers la page Facebook');
-        echo $form->text('twitter')->setLabel('Lien vers le compte Twitter');
+        echo $form->text('linkedin')->setLabel('Lien vers le compte Linkedin');
         echo $form->text('instagram')->setLabel('Lien vers le compte Instagram');
-        echo $form->text('youtube')->setLabel('Lien vers la chaine Youtube');
-    };
 
-    $page = function () use ($form) {
+        echo '<hr />';
 
-        echo '<h2 class="uk-padding-remove-bottom uk-text-center uk-margin-top">Définition des pages </h2>';
-
-        echo $form->search('login_url')->setLabel('Lien de page de login')->setPostType('page');
-        echo $form->search('member_url')->setLabel('Lien de page d\'espace membre')->setPostType('page');
-        echo $form->checkbox('active_login_url')->setLabel('Activer la page de login');
-
+        echo $form->text('phone')->setLabel('Numero de telephone');
+        echo $form->text('email')->setLabel('Adresse Email');
+        echo $form->text('location')->setLabel('Localisation ou Adresse');
     };
 
     // Save
@@ -49,8 +47,7 @@ $form = tr_form()->useJson()->setGroup($this->getName());
     // Layout
     tr_tabs()->setSidebar($save)
         ->addTab('Logo and branding', $branding)
-        ->addTab('Social Media', $social)
-        ->addTab('Pages', $page)
+        ->addTab('Contact et RS', $social)
         ->render();
     echo $form->close();
     ?>

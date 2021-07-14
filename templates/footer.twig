@@ -1,67 +1,71 @@
-<!-- Footer -->
-<footer class="footer bg-white">
-    <div class="container">
-        <div class="footer__widgets">
-            <div class="row">
+<div class="uk-section uk-background-cover" style="background-image: url({{ Image(options.imagefooter) }});">
+    <div class="uk-container">
 
-                <div class="col-lg-4 col-md-6">
-                    <aside class="widget widget-logo">
-                        <a href="{{ site.url }}">
-                            <img src="{{ Image(options.logo) }}" srcset="{{ Image(options.logo) }} 1x, {{ Image(options.logo) }} 2x" class="logo__img" alt="">
-                        </a>
-                        <p class="copyright">
-                            © {{ function('date', 'Y')}} Somari Media Connection | Made by <a href="">Aligodu</a>
-                        </p>
-                        <div class="socials socials--large socials--rounded mb-24">
-                            {% if options.facebook %}
-                                <a class="social social-facebook" href="{{ options.facebook }}" target="_blank" aria-label="facebook">
-                                    <i class="ui-facebook"></i>
-                                </a>
-                            {% endif %}
-
-                            {% if options.twitter %}
-                                <a class="social social-twitter" href="{{ options.twitter }}" target="_blank" aria-label="twitter">
-                                    <i class="ui-twitter"></i>
-                                </a>
-                            {% endif %}
-
-                            {% if options.youtube %}
-                                <a class="social social-youtube" href="{{ options.youtube }}" target="_blank" aria-label="youtube">
-                                    <i class="ui-youtube"></i>
-                                </a>
-                            {% endif %}
-
-                            {% if options.instagram %}
-                                <a class="social social-instagram" href="{{ options.instagram }}" target="_blank" aria-label="instagram">
-                                    <i class="ui-instagram"></i>
-                                </a>
-                            {% endif %}
-                        </div>
-                    </aside>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <aside class="widget widget_nav_menu">
-                        <h4 class="widget-title">Liens Rapide</h4>
-                        <ul>
-                            {% for item in footer.get_items %}
-                                <li class="{{item.classes | join(' ')}}">
-                                    <a href="{{item.get_link}}">{{item.title}}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </aside>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    {{ footer_right }}
-                </div>
-
+        <div class="uk-width-1-1 uk-flex uk-flex-right@m">
+            <div class="uk-width-1-2@m uk-width-1-1 uk-position-relative">
+                <div class="text-center text-5xl text-black font-medium uk-width-1-1 mt-6 mb-12 uk-text-justify">Prenez un rendez-vous</div>
+                    {{ options.form_footer|shortcodes }}
             </div>
         </div>
-    </div> <!-- end container -->
-</footer> <!-- end footer -->
 
-<div id="back-to-top">
-    <a href="#top" aria-label="Go to top"><i class="ui-arrow-up"></i></a>
+    </div>
 </div>
+
+<footer class="uk-section" aria-labelledby="footer-heading">
+    <h2 id="footer-heading" class="sr-only">Footer</h2>
+    <div class="max-w-7xl mx-auto px-8 md:px-0">
+        <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+            <div class="space-y-8 xl:col-span-1">
+                <img class="h-20" src="{{ Image(options.logo) }}" alt="">
+                <p class="text-gray-500 text-base">
+                    {{ options.aboutFooter }}
+                </p>
+                <div class="flex space-x-6">
+                    <a href="{{ options.linkedin }}" class="text-4xl text-gray-500 hover:text-primary md:mb-7"><i class="fab fa-linkedin"></i></a>
+                    <a href="{{ options.facebook }}" class="text-4xl text-gray-500 hover:text-primary md:mb-7"><i class="fab fa-facebook"></i></a>
+                    <a href="{{ options.instagram }}" class="text-4xl text-gray-500 hover:text-primary"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 md:gap-8 xl:mt-0 xl:col-span-2">
+                <div class="mt-6 md:mt-0">
+                    <ul class="mt-4 space-y-4">
+                        {% for item in menuHL.items %}
+                            <li>
+                                <a href="{{ item.link }}" class="text-base text-gray-500 hover:text-primary">
+                                    {{ item.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="mt-6 md:mt-0">
+                    <ul class="mt-4 space-y-4">
+                        {% for item in menuHR.items %}
+                            <li>
+                                <a href="{{ item.link }}" class="text-base text-gray-500 hover:text-primary">
+                                    {{ item.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="mt-6 md:mt-0">
+                    <ul class="space-y-4">
+                        {% for item in menuF1.items %}
+                            <li>
+                                <a href="{{ item.link }}" class="text-base text-gray-500 hover:text-primary">
+                                    {{ item.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-200 mt-12">
+            <p class="text-base text-gray-400 xl:text-center">
+                &copy; 2020 Workflow, Inc. All rights reserved.
+            </p>
+        </div>
+    </div>
+</footer>

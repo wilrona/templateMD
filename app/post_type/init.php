@@ -1,4 +1,4 @@
 <?php
 
-include ('posts.php');
-//include ('editions.php');
+include ('service.php');
+include ('customer.php');

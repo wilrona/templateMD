@@ -20,7 +20,7 @@ body{
     height: 30px;
     width: 90px;
     display: block;
-    background-size: 90px;
+    background-size: 80px;
     background-repeat: no-repeat;
     background-position: center;
     /*top: -12px;*/
@@ -28,7 +28,7 @@ body{
 
 
 #wpadminbar #wp-admin-bar-wp-logo > .ab-item{
-    background-color: #fff !important;
+    background-color: var(--wp-admin-theme-color) !important;
 }
 
 #wpadminbar .ab-top-menu > li.hover > .ab-item, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item, #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus {

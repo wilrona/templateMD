@@ -1,72 +1,239 @@
 {% extends "base.twig" %}
 
-{% block content %}
-
-
-    <!-- Trending Now -->
-    <div class="container">
-        {{ home_header_widgets }}
+{% block heading %}
+    <div class="uk-cover-container" uk-height-viewport="offset-top: true">
+        <iframe src="{{ post.linkvideo }}" uk-cover frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
+    <div class="uk-position-cover z-10 bg-black bg-opacity-60 uk-flex uk-flex-bottom uk-flex-center" uk-height-viewport="offset-top: true">
 
-    <!-- Featured Posts Grid -->
-    <section class="featured-posts-grid">
-        <div class="container">
-            <div class="row row-8">
+        <div class="uk-width-4-5@m mx-auto md:px-10 uk-margin-bottom flex flex-col md:flex-row">
 
-                {{ home_une_widgets }}
+            <div class="uk-width-auto flex items-end">
+                <div class="flex flex-row md:flex-col w-full justify-center px-10 py-6 md:py-0">
+                    <a href="{{ options.linkedin }}" class="text-2xl md:text-4xl text-white hover:text-primary md:mb-7 mx-5 flex items-center justify-center" uk-scrollspy="cls: uk-animation-shake; delay: 500; repeat: true"><i class="fab fa-linkedin"></i></a>
+                    <a href="{{ options.facebook }}" class="text-2xl md:text-4xl text-white hover:text-primary md:mb-7 mx-5 flex items-center justify-center" uk-scrollspy="cls: uk-animation-shake; delay: 500; repeat: true"><i class="fab fa-facebook"></i></a>
+                    <a href="{{ options.instagram }}" class="text-2xl md:text-4xl text-white hover:text-primary mx-5 flex items-center justify-center" uk-scrollspy="cls: uk-animation-shake; delay: 500; repeat: true"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="uk-width-expand px-10 uppercase border-0 md:border-l-4 border-primary border-solid uk-flex-last@m uk-flex-first">
+                <div class="text-6xl md:text-9xl font-rubik font-medium text-center md:text-left" uk-scrollspy="cls: uk-animation-slide-top-small; delay: 300; repeat: true">
+                    {{ post.herotextone }}
+                </div>
+                <div class="text-3xl md:text-9xl font-rubik font-medium text-primary text-center md:text-left my-4 md:my-0" uk-scrollspy="cls: uk-animation-slide-left-small; delay: 500; repeat: true">
+                    {{ post.herotexttwo }}
+                </div>
+                {% if post.linkcontact %}
+                    <div class="uk-flex uk-flex-right@m md:mt-10 mt-5">
+                        <a class="uk-button uk-button-default !normal-case bg-primary border-0 hover:bg-primary py-1 md:py-4 uk-width-1-3@m uk-flex space-x-5 rounded-lg items-center" href="{{ Post(post.linkContact).link }}"
+                           uk-scrollspy="cls: uk-animation-shake; repeat: true" >
+                            <span class="text-6xl md:text-4xl"><i class="fas fa-envelope"></i></span>
+                            <span class="leading-2 text-xs md:text-sm font-medium text-justify">
+                                    Reservez une consultation gratuite dans notre centre des aujourd’hui
+                            </span>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
 
+        </div>
+
+    </div>
+
+    <div class="uk-position-top z-30 w-full">
+        {% include 'menu.twig' %}
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="uk-section bg-secondary">
+        <div class="uk-container">
+            <div class="uk-child-width-1-3@m uk-child-width-1-1 uk-grid-large space-y-10 md:space-y-0" uk-grid>
+                {% if options.phone %}
+                <div class="uk-flex items-center space-x-6">
+                    <div class="text-4xl text-white">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                        <div class="text-sm text-primary">Appelez-nous</div>
+                        <div class="italic text-2xl" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100; repeat: true">{{ options.phone }}</div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if options.email %}
+                <div class="uk-flex items-center space-x-6">
+                    <div class="text-4xl text-white">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <div class="text-sm text-primary">Ecrivez-nous</div>
+                        <div class="italic text-2xl" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100; repeat: true">{{ options.email }}</div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if options.location %}
+                <div class="uk-flex items-center space-x-6">
+                    <div class="text-6xl text-white">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <div class="text-sm text-primary">Retrouvez-nous</div>
+                        <div class="italic text-2xl" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100; repeat: true">{{ options.location }}</div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
-    </section> <!-- end featured posts grid -->
+
+    </div>
+
+    {% if post.show_presentation %}
+
+        <div class="uk-section-large">
+
+            <div class="uk-container">
+
+                <div uk-grid class="uk-child-width-1-2@m uk-child-width-1-1 uk-grid-large">
+                    <div uk-scrollspy="cls: uk-animation-slide-left-small; delay: 100; repeat: true">
+                        <img src="{{ Image(post.image_presentation) }}" alt="" class="uk-width-1-1">
+                    </div>
+                    <div class="uk-flex uk-flex-middle uk-flex-last@m uk-flex-first@s" uk-scrollspy="cls: uk-animation-slide-right-small; delay: 100; repeat: true">
+                        <div>
+                            <h1 class="text-white text-4xl md:text-6xl font-zapfino mb-16">{{ post.titre_one_presentation }} <span class="text-primary uk-display-block mt-5">{{ post.titre_two_presentation }}</span></h1>
+                            <div class="uk-margin-top">
+                                {{ post.content_presentation }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endif %}
 
 
+    {% if post.show_specialisation %}
 
-    <div class="main-container container pt-24" id="main-container">
+        <div class="uk-section border-t border-0 border-primary border-solid">
 
-        <!-- Content -->
-        <div class="row">
+            <div class="uk-container">
 
-            <!-- Posts -->
-            <div class="col-lg-8 blog__content">
-                {{ home_center_widgets }}
-            </div> <!-- end posts -->
+                <div class="font-zapfino text-4xl md:text-8xl md:-mt-5">
+                    <span class="text-primary" uk-scrollspy="cls: uk-animation-slide-left-medium; delay: 200; repeat: true">{{ post.titre_one_specialisation}} </span>
+                    <span class="mt-5 md:mt-14 block text-right md:pr-28" uk-scrollspy="cls: uk-animation-slide-right-medium; delay: 200; repeat: true">{{ post.titre_two_specialisation }}</span>
+                </div>
 
-            <!-- Sidebar -->
-            <aside class="col-lg-4 sidebar sidebar--right">
-                {{ home_sidebar_widgets }}
-            </aside> <!-- end sidebar -->
+                <div class="md:px-16 mt-10">
+                    <div uk-grid>
+                        <div class="uk-width-auto">
+                            <ul class="uk-tab-left before:border-primary before:border-r-4 pr-10" uk-tab="connect: #component-tab-left; animation: uk-animation-fade">
+                                {% for item in post.list_specialisation %}
+                                <li><a href="#">{{ item.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="uk-width-expand">
+                            <ul id="component-tab-left" class="uk-switcher">
+                                {% for item in post.list_specialisation %}
+                                <li>
+                                    <iframe src="{{ item.link_video }}" width="777" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-        </div> <!-- end content -->
+            </div>
 
-        {{ home_section_area_widgets }}
+        </div>
+    {% endif %}
 
-        <!-- Content Secondary -->
-        <div class="row">
+    {% if post.show_professionnel %}
 
-            <!-- Posts -->
-            <div class="col-lg-8 blog__content mb-72">
+        <div class="uk-background-cover" style="background-image: url({{ Image(post.image_professionnel) }});">
 
-                {{ home_section_area_footer_left_widgets }}
+            <div class="h-8 md:h-36"></div>
+            <h2 class="uk-container font-zapfino text-4xl md:text-8xl text-white" >
+                <span uk-scrollspy="cls: uk-animation-slide-left-medium; delay: 200; repeat: true">{{ post.titre_one_professionnel }}</span> <br>
+                <span class="text-primary block mt-10" uk-scrollspy="cls: uk-animation-slide-left-medium; delay: 400; repeat: true">{{ post.titre_two_professionnel }}</span>
+            </h2>
 
-            </div> <!-- end posts -->
+            <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
 
-            <!-- Sidebar 1 -->
-            <aside class="col-lg-4 sidebar sidebar--1 sidebar--right">
+                <ul class="uk-slider-items uk-child-width-1-5@m uk-child-width-1-1 uk-flex uk-flex-center">
+                    {% for item in post.list_professionnel %}
+                        <li class="group p-2">
+                            <img src="{{ Image(item.image) }}" class="uk-width-1-1 group-hover:cursor-pointer"alt="">
+                            <div class="py-4 px-6 bg-secondary uk-flex uk-flex-column items-center text-white group-hover:text-secondary group-hover:bg-primary group-hover:cursor-pointer">
+                                <div class="italic">{{ item.name }}</div>
+                                <div class="text-xs italic">{{ item.poste }}</div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
 
-                {{ home_section_area_footer_right_widgets }}
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover bg-black rounded-full px-4 py-3" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover bg-black rounded-full px-4 py-3" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
-{#                <!-- Widget Ad 300 -->#}
-{#                <aside class="widget widget_media_image">#}
-{#                    <a href="#">#}
-{#                        <img src="img/content/placeholder_336.jpg" alt="">#}
-{#                    </a>#}
-{#                </aside> <!-- end widget ad 300 -->#}
+            </div>
 
-            </aside> <!-- end sidebar 1 -->
-        </div> <!-- content secondary -->
+        </div>
 
+    {% endif %}
 
-    </div> <!-- end main container -->
+    {% if post.show_client %}
+    <div class="uk-section-large">
+        <div class="uk-container">
+            <div class="uk-grid-small uk-child-width-1-2@m uk-child-width-1-1 uk-flex uk-flex-middle py-10" uk-grid>
+                <div>
+                    <div class="font-zapfino text-5xl leading-none mt-5">
+                        <span class="" uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 200; repeat: true">{{ post.titre_one_client}} </span>
+                        <span class="mt-14 block text-right pr-36 text-primary border-0 border-b-2" uk-scrollspy="cls: uk-animation-slide-bottom-medium; delay: 200; repeat: true">
+                                {{ post.titre_two_client }}
+                        </span>
+{#                             <span class="text-center md:text-right pr-36 text-primary uk-flex-right uk-flex-middle">#}
+{#                                <span class="bg-primary h-2 uk-width-1-4"></span>#}
+{#                                <span class="block uk-flex uk-flex-middle mt-2"><i class="fas fa-long-arrow-alt-right"></i></span>#}
+{#                            </span>#}
+                    </div>
+                </div>
+                <div>
+                    <div uk-slider>
+
+                        <div class="uk-position-relative">
+
+                            <div class="uk-slider-container uk-light">
+                                <ul class="uk-slider-items uk-child-width-1-1">
+                                    {% for item in post.list_client %}
+                                        <li class="uk-text-justify italic">
+                                            {{ item.content }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <div class="relative uk-flex uk-flex-middle uk-flex-between mt-10">
+                                <a class="text-4xl text-primary hover:text-primary" href="#" uk-slider-item="previous">
+                                    <i class="fas fa-arrow-left"></i>
+                                </a>
+                                <a class="text-4xl text-primary hover:text-primary" href="#" uk-slider-item="next">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
 
 {% endblock %}

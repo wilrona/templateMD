@@ -1,7 +1,0 @@
-<ul class="" >
-    {% for item in menu_member.get_items %}
-        <li class="{{item.classes | join(' ')}} py-2">
-            <a href="{{item.get_link}}">{{item.title}}</a>
-        </li>
-    {% endfor %}
-</ul>

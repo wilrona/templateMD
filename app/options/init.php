@@ -23,6 +23,7 @@ $form = tr_form()->useJson()->setGroup($this->getName());
         echo $form->editor('aboutFooter')->setLabel('Description de l\'entreprise en pied de page');
         echo $form->image('imageFooter')->setLabel('Image de fond pour le formulaire du footer');
         echo $form->text('form_footer')->setLabel('Formulaire du footer')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
+        echo $form->text('formnewsletter')->setLabel('Formulaire de newsletter')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
 
     };
 
@@ -33,12 +34,18 @@ $form = tr_form()->useJson()->setGroup($this->getName());
         echo $form->text('facebook')->setLabel('Lien vers la page Facebook');
         echo $form->text('linkedin')->setLabel('Lien vers le compte Linkedin');
         echo $form->text('instagram')->setLabel('Lien vers le compte Instagram');
+        echo $form->text('email')->setLabel('email de contact');
 
         echo '<hr />';
 
         echo $form->text('phone')->setLabel('Numero de telephone');
         echo $form->text('email')->setLabel('Adresse Email');
         echo $form->text('location')->setLabel('Localisation ou Adresse');
+
+        echo '<hr />';
+
+        echo $form->editor('footer_contact_one')->setLabel('Contact au pied de page 1');
+        echo $form->editor('footer_contact_two')->setLabel('Contact au pied de page 2');
     };
 
     // Save

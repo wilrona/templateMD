@@ -9,7 +9,7 @@
 {#	</ul>#}
 {#{% endif#}
 
-<nav class="mx-auto bg-black py-4 md:bg-opacity-70 bg-opacity-80 uk-padding-large" uk-navbar>
+<nav class="!bg-black py-4 md:!bg-opacity-70 !bg-opacity-80 uk-padding-large uk-navbar-container" uk-navbar uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 300; repeat: false" uk-sticky>
     <div class="uk-navbar-center">
         <div class="uk-navbar-center-left">
             <div class="md:hidden">
@@ -46,7 +46,7 @@
                 </ul>
             </div>
         </div>
-        <a class="uk-navbar-item uk-logo mx-10" href="{{ site.link }}">
+        <a class="uk-navbar-item uk-logo mx-10 md:mx-0 2xl:mx-10" href="{{ site.link }}">
             <img src="{{ Image(options.logo) }}" alt="" class="h-16">
         </a>
         <div class="uk-navbar-center-right hidden md:block">

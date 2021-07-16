@@ -1,23 +1,21 @@
 {% extends "base.twig" %}
 
-{% block content %}
-	<div class="main-container container" id="main-container">
-
-		<!-- Content -->
-		<div class="row flex justify-content-center my-5">
-			<!-- Posts -->
-			<div class="col-lg-8 col-12 blog__content">
-
-				<div class="entry card">
-
-					<article class="entry__body post-list__body card__body post-type-{{post.post_type}}" id="post-{{post.ID}}">
-						{% include template_from_string(post.content) %}
-					</article>
-				</div>
-			</div> <!-- end posts -->
-
-		</div> <!-- end content -->
-
+{% block heading %}
+	<div class="">
+		{% include 'menu.twig' %}
 	</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="uk-section-large border-0 border-b-2 border-solid border-primary">
+	<div class="uk-container">
+		<h1 class="md:font-zapfino text-center text-primary text-4xl md:text-[120px] md:mb-24" uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 600; repeat: true">{{ post.title }}</h1>
+
+		<div>
+			{{ post.content }}
+		</div>
+	</div>
+</div>
 
 {% endblock %}

@@ -1,31 +1,31 @@
 {% extends "base.twig" %}
 
+{% block heading %}
+	<div class="">
+		{% include 'menu.twig' %}
+	</div>
+{% endblock %}
+
 {% block content %}
-	<div class="main-container container pt-80 pb-80" id="main-container">
-		<!-- post content -->
-		<div class="blog__content mb-72">
-			<div class="container text-center">
-				<h1 class="page-404-number">404</h1>
-				<h2>Page non trouvée</h2>
-				<p>Ne vous inquiétez pas! Remettons-nous sur la bonne voie. Peut-être que la recherche peut vous aider</p>
 
-				<div class="row justify-content-center mt-40">
+	<div class="uk-section-large border-0 border-b-2 border-solid border-primary">
+		<div class="uk-container">
+			<h1 class="md:font-zapfino text-center text-primary text-4xl md:text-[120px] md:mb-24" uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 600; repeat: true">404 - Page introuvable</h1>
 
-					<div class="col-md-6">
-						<!-- Search form -->
-						<form role="search" method="get" class="search-form relative" action="{{site.link}}">
-							<input type="search" class="widget-search-input mb-0" placeholder="Rechercher un  article" value="{{ function('get_search_query') }}" name="s">
-							<button type="submit" class="widget-search-button btn btn-color"><i class="ui-search widget-search-icon"></i></button>
-						</form>
+			<div class="uk-margin-large-top uk-margin-large-bottom">
+				<div class="uk-flex uk-flex-center text-4xl">
+					<div class="uk-width-1-2@m uk-text-center font-body font-normal">Ne vous inquiétez pas! Remettons-nous sur la bonne voie.
+						<br> Retournez sur la page d'accueil.</div>
+				</div>
+			</div>
 
-						<!-- Back to home -->
-						<a href="{{ site.link }}" class="btn btn-lg btn-light mt-40"><span>Retour à l'accueil</span></a>
-					</div>
-
-				</div> <!-- end row -->
-
-			</div> <!-- end container -->
-		</div> <!-- end post content -->
-	</div> <!-- end main container -->
+			<div class="uk-flex uk-flex-center uk-flex-middle">
+				<div class="uk-width-1-4@m">
+					<!-- Back to home -->
+					<a href="{{ site.link }}" class="w-full bg-primary border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"><span>Retour à l'accueil</span></a>
+				</div>
+			</div> <!-- end row -->
+		</div>
+	</div>
 
 {% endblock %}

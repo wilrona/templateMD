@@ -135,7 +135,11 @@
                             <ul id="component-tab-left" class="uk-switcher">
                                 {% for item in post.list_specialisation %}
                                 <li>
-                                    <iframe src="{{ item.link_video }}" width="777" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <figure class="wp-block-embed aligncenter is-type-video is-provider-vimeo wp-block-embed-vimeo uk-video-embed wp-embed-aspect-16-9 wp-has-aspect-ratio">
+                                        <div class="wp-block-embed__wrapper">
+                                            <iframe loading="lazy" src="{{ item.link_video }}" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
+                                        </div>
+                                    </figure>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -158,7 +162,7 @@
                 <span class="text-primary block md:-mt-20 2xl:mt-18" uk-scrollspy="cls: uk-animation-slide-left-medium; delay: 1000; repeat: true">{{ post.titre_two_professionnel }}</span>
             </h2>
 
-            <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="autoplay:true;">
+            <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
 
                 <ul class="uk-slider-items uk-child-width-1-5@m uk-child-width-1-1 uk-flex uk-flex-center">
                     {% for item in post.list_professionnel %}

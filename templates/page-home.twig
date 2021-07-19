@@ -12,24 +12,13 @@
             <div class="uk-width-auto flex items-end">
                 {% include 'social-icon.twig' %}
             </div>
-            <div class="uk-width-expand px-10 uppercase border-0 md:border-l-4 border-primary border-solid uk-flex-last@m uk-flex-first">
+            <div class="uk-width-expand px-10 uppercase border-0 md:border-l-4 border-primary border-solid uk-flex-last@m uk-flex-first md:pb-32">
                 <div class="text-6xl md:text-8xl 2xl:text-9xl font-rubik font-medium text-center md:text-left" uk-scrollspy="cls: uk-animation-slide-left-medium; delay: 300; repeat: false">
                     {{ post.herotextone }}
                 </div>
                 <div class="text-3xl md:text-8xl 2xl:text-9xl font-rubik font-medium text-primary text-center md:text-left my-4 md:my-0" uk-scrollspy="cls: uk-animation-slide-left-medium; delay: 300; repeat: false">
                     {{ post.herotexttwo }}
                 </div>
-                {% if post.linkcontact %}
-                    <div class="uk-flex uk-flex-right@m md:mt-10 mt-5">
-                        <a class="uk-button uk-button-default !normal-case bg-primary border-0 hover:bg-primary py-1 md:py-4 uk-width-1-2@m uk-width-1-3@xl uk-flex space-x-5 rounded-lg items-center" href="{{ Post(post.linkContact).link }}"
-                           uk-scrollspy="cls: uk-animation-shake; repeat: true">
-                            <span class="text-6xl md:text-5xl"><i class="fas fa-envelope"></i></span>
-                            <span class="leading-2 text-xs md:text-sm font-medium text-left">
-                                Reservez une consultation gratuite dans notre centre des aujourd’hui
-                            </span>
-                        </a>
-                    </div>
-                {% endif %}
             </div>
 
         </div>
@@ -52,7 +41,7 @@
                         <i class="fas fa-phone-alt"></i>
                     </div>
                     <div>
-                        <div class="text-sm text-primary">Appelez-nous</div>
+                        <div class="text-sm text-primary">{{ __("Appelez-nous", "typetheme") }}</div>
                         <div class="italic text-2xl">{{ options.phone }}</div>
                     </div>
                 </div>
@@ -63,7 +52,7 @@
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div>
-                        <div class="text-sm text-primary">Ecrivez-nous</div>
+                        <div class="text-sm text-primary">{{ __("Ecrivez-nous", "typetheme") }}</div>
                         <div class="italic text-2xl">{{ options.email }}</div>
                     </div>
                 </div>
@@ -74,7 +63,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <div>
-                        <div class="text-sm text-primary">Retrouvez-nous</div>
+                        <div class="text-sm text-primary">{{ __("Retrouvez-nous", "typetheme") }}</div>
                         <div class="italic text-2xl">{{ options.location }}</div>
                     </div>
                 </div>
@@ -127,20 +116,20 @@
                         <div class="uk-width-auto" uk-scrollspy="cls: uk-animation-slide-left-medium; delay: 500; repeat: true">
                             <ul class="uk-tab-left before:border-primary before:border-r-4 pr-10" uk-tab="connect: #component-tab-left; animation: uk-animation-fade">
                                 {% for item in post.list_specialisation %}
-                                <li><a href="#">{{ item.title }}</a></li>
+                                    <li><a href="#">{{ item.title }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
                         <div class="uk-width-expand" uk-scrollspy="cls: uk-animation-slide-right-medium; delay: 1000; repeat: true">
                             <ul id="component-tab-left" class="uk-switcher">
                                 {% for item in post.list_specialisation %}
-                                <li>
-                                    <figure class="wp-block-embed aligncenter is-type-video is-provider-vimeo wp-block-embed-vimeo uk-video-embed wp-embed-aspect-16-9 wp-has-aspect-ratio">
-                                        <div class="wp-block-embed__wrapper">
-                                            <iframe loading="lazy" src="{{ item.link_video }}" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
-                                        </div>
-                                    </figure>
-                                </li>
+                                    <li>
+                                        <figure class="wp-block-embed aligncenter is-type-video is-provider-vimeo wp-block-embed-vimeo uk-video-embed wp-embed-aspect-16-9 wp-has-aspect-ratio">
+                                            <div class="wp-block-embed__wrapper">
+                                                <iframe loading="lazy" src="{{ item.link_video }}" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
+                                            </div>
+                                        </figure>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -164,10 +153,10 @@
 
             <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
 
-                <ul class="uk-slider-items uk-child-width-1-5@m uk-child-width-1-1 uk-flex uk-flex-center">
+                <ul class="uk-slider-items uk-child-width-1-5@m uk-child-width-1-1" uk-grid>
                     {% for item in post.list_professionnel %}
                         <li class="group p-2">
-                            <img src="{{ Image(item.image) }}" class="uk-width-1-1 group-hover:cursor-pointer"alt="">
+                            <img src="{{ Image(item.image) | resize(400, 300) }}" class="uk-width-1-1 uk-height-medium group-hover:cursor-pointer"alt="">
                             <div class="py-4 px-6 bg-secondary uk-flex uk-flex-column items-center text-white group-hover:text-secondary group-hover:bg-primary group-hover:cursor-pointer">
                                 <div class="italic">{{ item.name }}</div>
                                 <div class="text-xs italic">{{ item.poste }}</div>

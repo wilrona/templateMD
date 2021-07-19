@@ -3,7 +3,7 @@
 
         <div class="uk-width-1-1 uk-flex uk-flex-right@m">
             <div class="uk-width-1-2@m uk-width-1-1 uk-position-relative">
-                <div class="text-center text-5xl text-black font-medium uk-width-1-1 mt-6 mb-12 uk-text-justify">Prenez un rendez-vous</div>
+                <div class="text-center text-5xl text-black font-medium uk-width-1-1 mt-6 mb-12 uk-text-justify">{{ __("Prenez un rendez-vous", "typetheme") }}</div>
                     {{ options.form_footer|shortcodes }}
             </div>
         </div>
@@ -19,7 +19,7 @@
                 <div class="md:grid md:grid-cols-2 md:gap-8 col-span-2">
                     <div>
                         <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                            Contactez-nous
+                            {{ __("Contactez-nous", "typetheme") }}
                         </h3>
                         <div class="mt-4">
                             {{ options.footer_contact_one }}
@@ -27,7 +27,7 @@
                     </div>
                     <div class="mt-12 md:mt-0">
                         <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                            Contactez-nous
+                            {{ __("Contactez-nous", "typetheme") }}
                         </h3>
                         <div class="mt-4">
                             {{ options.footer_contact_two }}
@@ -37,7 +37,7 @@
                 <div class="md:grid md:grid-cols-1 md:gap-8">
                     <div class="md:mt-0 md:pl-10">
                         <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                            Liens
+                            {{ __("Liens", "typetheme") }}
                         </h3>
                         <ul class="mt-4 !list-none !pl-0">
                             {% for item in menuF1.items %}
@@ -53,10 +53,10 @@
             </div>
             <div class="mt-8 xl:mt-0">
                 <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                    Newsletter
+                    {{ __("newsletter", "typetheme") }}
                 </h3>
                 <p class="mt-4 text-base text-white">
-                    Souscrivez et recevez toutes nos actualité, offres exclusives et conseils santé.
+                    {{ __("Souscrivez et recevez toutes nos actualité, offres exclusives et conseils santé.", "typetheme") }}
                 </p>
                 {{ options.formnewsletter|shortcodes }}
             </div>
@@ -70,7 +70,7 @@
                 {% if options.print %}<a href="{{ options.print }}" class="text-3xl text-white hover:text-primary" target="_blank"><i class="fas fa-print"></i></a> {% endif %}
             </div>
             <p class="mt-4 text-base text-white md:mt-0 md:order-1">
-                &copy; 2021 REFERENCE MD, Inc. Tous droits réservés. Propulsé par Dream-W pro.
+                &copy; 2021 REFERENCE MD, Inc. {{ __("Tous droits réservés. Propulsé par", 'typetheme')}} Dream-W pro.
             </p>
         </div>
     </div>

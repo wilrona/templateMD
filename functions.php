@@ -130,7 +130,7 @@ class BootsmoothSite extends TimberSite {
 				'hl' => 'Menu haut a gauche',
                 'hr' => 'Menu haut a droite',
                 'f1' => 'Menu Footer',
-                'mobile' => 'Menu responsive',
+//                'mobile' => 'Menu responsive',
 			)
 		);
 	}
@@ -140,7 +140,7 @@ class BootsmoothSite extends TimberSite {
 		$context['menuHL'] = new TimberMenu('hl');
 		$context['menuHR'] = new TimberMenu('hr');
         $context['menuF1'] = new TimberMenu('f1');
-        $context['menuMobile'] = new TimberMenu('mobile');
+//        $context['menuMobile'] = new TimberMenu('mobile');
 		$context['site'] = $this;
 		$context['options'] = tr_options_field('options');
 		$context['admin_url'] = admin_url('admin-ajax.php');

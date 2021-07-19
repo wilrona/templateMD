@@ -10,19 +10,19 @@
 
 	<div class="uk-section-large border-0 border-b-2 border-solid border-primary">
 		<div class="uk-container">
-			<h1 class="md:font-zapfino text-center text-primary text-4xl md:text-[120px] md:mb-24" uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 600; repeat: true">404 - Page introuvable</h1>
+			<h1 class="md:font-zapfino text-center text-primary text-4xl md:text-[120px] md:mb-24" uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 600; repeat: true">{{ __("404 - Page introuvable", "typetheme") }}</h1>
 
 			<div class="uk-margin-large-top uk-margin-large-bottom">
 				<div class="uk-flex uk-flex-center text-4xl">
-					<div class="uk-width-1-2@m uk-text-center font-body font-normal">Ne vous inquiétez pas! Remettons-nous sur la bonne voie.
-						<br> Retournez sur la page d'accueil.</div>
+					<div class="uk-width-1-2@m uk-text-center font-body font-normal">{{ __("Ne vous inquiétez pas! Remettons-nous sur la bonne voie.", "typetheme") }}
+						<br>{{ __("Retournez sur la page d'accueil.", "typetheme") }}</div>
 				</div>
 			</div>
 
 			<div class="uk-flex uk-flex-center uk-flex-middle">
 				<div class="uk-width-1-4@m">
 					<!-- Back to home -->
-					<a href="{{ site.link }}" class="w-full bg-primary border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"><span>Retour à l'accueil</span></a>
+					<a href="{{ site.link }}" class="w-full bg-primary border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"><span>{{ __("Retour à l'accueil", "typetheme") }}</span></a>
 				</div>
 			</div> <!-- end row -->
 		</div>

@@ -9,112 +9,57 @@
 {#	</ul>#}
 {#{% endif#}
 
-<nav class="!bg-black py-4 md:!bg-opacity-70 !bg-opacity-80 uk-padding-large uk-navbar-container" uk-navbar uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 300; repeat: false" uk-sticky>
-    <div class="uk-navbar-center">
-        <div class="uk-navbar-center-left">
-            <div class="md:hidden">
-                <a class="uk-navbar-toggle text-white" href="#offcanvas-usage" uk-toggle>
-                    <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left"></span>
+<nav class="!bg-black md:!bg-opacity-30 !bg-opacity-80 uk-navbar-container md:px-44 2xl:px-96" uk-navbar uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 300; repeat: false" uk-sticky>
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li>
+                <a class="uk-burger" href="#offcanvas-usage" uk-toggle>
+                    <span></span>
+                    <span></span>
                 </a>
-            </div>
-             <div class="hidden md:block">
-                <ul class="uk-navbar-nav">
-                    {% for item in menuHL.items %}
-                        {% if item.children %}
-                            <li class="{% if item.current %}uk-active{% endif %}">
-                                <a href="#">{{item.title}}</a>
-                                <div class="uk-navbar-dropdown uk-navbar-dropdown-width-2">
-                                    <div class="uk-navbar-dropdown-grid uk-child-width-1-1" uk-grid>
-                                        <div>
-                                            <ul class="uk-nav uk-navbar-dropdown-nav">
-                                                {% for subItem in item.children %}
-                                                    <li class="{{subItem.classes | join(' ')}} {% if subItem.current %}uk-active{% endif %}">
-                                                        <a href="{{subItem.link}}">{{subItem.title}}</a>
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        {% else %}
-                            <li class="{{item.classes | join(' ')}} {% if item.current %}uk-active{% endif %}">
-                                <a href="{{item.link}}">{{item.title}}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+            </li>
+        </ul>
+    </div>
+    <div class="uk-navbar-center">
         <a class="uk-navbar-item uk-logo mx-10 md:mx-0 2xl:mx-10" href="{{ site.link }}">
             <img src="{{ Image(options.logo) }}" alt="" class="h-16">
         </a>
-        <div class="uk-navbar-center-right hidden md:block">
-            <div>
-                <ul class="uk-navbar-nav">
-                    {% for item in menuHR.items %}
-                        {% if item.children %}
-                            <li class="{% if item.current %}uk-active{% endif %}">
-                                <a href="#">{{item.title}}</a>
-                                <div class="uk-navbar-dropdown uk-navbar-dropdown-width-2">
-                                    <div class="uk-navbar-dropdown-grid uk-child-width-1-1" uk-grid>
-                                        <div>
-                                            <ul class="uk-nav uk-navbar-dropdown-nav">
-                                                {% for subItem in item.children %}
-                                                    <li class="{{subItem.classes | join(' ')}} {% if subItem.current %}uk-active{% endif %}">
-                                                        <a href="{{subItem.link}}">{{subItem.title}}</a>
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        {% else %}
-                            <li class="{{item.classes | join(' ')}} {% if item.current %}uk-active{% endif %}">
-                                <a href="{{item.link}}">{{item.title}}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+    </div>
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav uk-text-capitalize">
+            {% for item in menuHR.items %}
+                <li class="{{item.classes | join(' ')}} {% if item.current %}uk-active{% endif %}"><a href="{{item.link}}">{{item.title}}</a></li>
+            {% endfor %}
+
+        </ul>
     </div>
 </nav>
-<div id="offcanvas-usage" uk-offcanvas="overlay: true">
-    <div class="uk-offcanvas-bar uk-flex uk-flex-column">
-        <div class="mb-10 mt-5">
-            <img src="{{ Image(options.logo) }}" alt="" class="h-16">
+
+<div id="offcanvas-usage" class="uk-modal-full" uk-modal>
+    <div class="uk-modal-dialog bg-black" uk-height-viewport>
+        <button class="uk-modal-close-full uk-close-large bg-black text-white" type="button" uk-close></button>
+        <div class="uk-child-width-1-2@m uk-flex-middle uk-flex-center uk-flex">
+            <div class="p-6 md:p-32">
+                <h1 class="text-center font-zapfino text-primary text-9xl">{{ __("Menu", "typetheme") }}</h1>
+                <div>
+                    <ul class="uk-nav-primary uk-nav-parent-icon" uk-nav>
+                        {% for item in menuHL.items %}
+                            {% if item.children %}
+                                <li class="uk-parent {% if item.current %}uk-active{% endif %}">
+                                    <a href="#">{{ item.title }}</a>
+                                    <ul class="uk-nav-sub">
+                                        {% for subItem in item.children %}
+                                            <li class="{{subItem.classes | join(' ')}} normal-case {% if subItem.current %}uk-active{% endif %}"><a href="{{ subItem.link }}">{{ subItem.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class="{{item.classes | join(' ')}} {% if item.current %}uk-active{% endif %}"><a href="{{item.link}}">{{item.title}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-        <ul class="uk-nav uk-nav-primary uk-margin-auto-vertical">
-            {% for item in menuHL.items %}
-                {% if item.children %}
-                    <li class="uk-parent {% if item.current %}uk-active{% endif %}">
-                        <a href="#">{{ item.title }}</a>
-                        <ul class="uk-nav-sub">
-                            {% for subItem in item.children %}
-                                <li class="{{subItem.classes | join(' ')}} normal-case {% if subItem.current %}uk-active{% endif %}"><a href="{{ subItem.link }}">{{ subItem.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% else %}
-                    <li class="{{item.classes | join(' ')}} {% if item.current %}uk-active{% endif %}"><a href="{{item.link}}">{{item.title}}</a></li>
-                {% endif %}
-            {% endfor %}
-            {% for item in menuHR.items %}
-                {% if item.children %}
-                    <li class="uk-parent {% if item.current %}uk-active{% endif %}">
-                        <a href="#">{{ item.title }}</a>
-                        <ul class="uk-nav-sub">
-                            {% for subItem in item.children %}
-                                <li class="{{subItem.classes | join(' ')}} normal-case {% if subItem.current %}uk-active{% endif %}"><a href="{{ subItem.link }}">{{ subItem.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% else %}
-                    <li class="{{item.classes | join(' ')}} {% if item.current %}uk-active{% endif %}"><a href="{{item.link}}">{{item.title}}</a></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
     </div>
 </div>

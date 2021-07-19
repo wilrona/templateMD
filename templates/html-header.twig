@@ -9,11 +9,11 @@
             {% if function('is_category') %}
                 {{  function('single_cat_title') }}
             {% elseif function('is_search') %}
-                Recherche pour &quot; {{ function('wp_specialchars', s) }} &quot; | {{ site.name }}
+                {{ __("Recherche pour", "typetheme")}} &quot; {{ function('wp_specialchars', s) }} &quot; | {{ site.name }}
             {% elseif function('is_home') or function('is_front_page') %}
                 {{ site.name }} | {{ site.description }}
             {% elseif function('is_404') %}
-                Error 404 Not Found | {{ site.name }}
+                {{ __("Error 404 Not Found", "typetheme")}} | {{ site.name }}
             {% elseif function('is_single') %}
                 {{ wp_title }} | {{ site.name }}
             {% else %}

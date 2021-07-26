@@ -2,6 +2,7 @@
 
 use Timber\Timber;
 use Timber\Twig_Filter;
+use Timber\Twig_Function;
 
 include('admin-ui/admin-ui.php');
 
@@ -128,7 +129,7 @@ class BootsmoothSite extends TimberSite {
 		register_nav_menus(
 			array(
 				'hl' => 'Menu haut a gauche',
-                'hr' => 'Menu haut a droite',
+//                'hr' => 'Menu haut a droite',
                 'f1' => 'Menu Footer',
 //                'mobile' => 'Menu responsive',
 			)
@@ -138,7 +139,7 @@ class BootsmoothSite extends TimberSite {
 	// register custom context variables
 	function add_to_context( $context ) {
 		$context['menuHL'] = new TimberMenu('hl');
-		$context['menuHR'] = new TimberMenu('hr');
+//		$context['menuHR'] = new TimberMenu('hr');
         $context['menuF1'] = new TimberMenu('f1');
 //        $context['menuMobile'] = new TimberMenu('mobile');
 		$context['site'] = $this;
@@ -180,6 +181,18 @@ class BootsmoothSite extends TimberSite {
             $content = str_replace(']]>', ']]>', $content);
             return substr($content, 0, $num_words) ;
         }));
+
+        if(function_exists('pll_the_languages')){
+            $twig->addFunction(new Twig_Function('pll_the_languages', "pll_the_languages"));
+        }
+
+        if(function_exists('pll_home_url')){
+            $twig->addFunction(new Twig_Function('pll_home_url', "pll_home_url"));
+        }
+
+        if(function_exists('pll_current_language')){
+            $twig->addFunction(new Twig_Function('pll_current_language', "pll_current_language"));
+        }
 
 		return $twig;
 	}

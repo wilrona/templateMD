@@ -21,16 +21,17 @@
         </ul>
     </div>
     <div class="uk-navbar-center">
-        <a class="uk-navbar-item uk-logo mx-10 md:mx-0 2xl:mx-10" href="{{ site.link }}">
+        <a class="uk-navbar-item uk-logo mx-10 md:mx-0 2xl:mx-10" href="{{ pll_home_url(pll_current_language()) }}">
             <img src="{{ Image(options.logo) }}" alt="" class="h-16">
         </a>
     </div>
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav uk-text-capitalize">
-            {% for item in menuHR.items %}
-                <li class="{{item.classes | join(' ')}} {% if item.current %}uk-active{% endif %}"><a href="{{item.link}}">{{item.title}}</a></li>
+            {% for lang in pll_the_languages({ raw : 1 }) %}
+                {% if not lang.current_lang %}
+                    <li><a href="{{lang.url}}">{{lang.name}}</a></li>
+                {% endif %}
             {% endfor %}
-
         </ul>
     </div>
 </nav>

@@ -4,7 +4,11 @@
         <div class="uk-width-1-1 uk-flex uk-flex-right@m">
             <div class="uk-width-1-2@m uk-width-1-1 uk-position-relative">
                 <div class="text-center text-5xl text-black font-medium uk-width-1-1 mt-6 mb-12 uk-text-justify">{{ __("Prenez un rendez-vous", "typetheme") }}</div>
+                {% if function('is_language', 'fr') %}
                     {{ options.form_footer|shortcodes }}
+                {% else %}
+                    {{ options.form_footer_en|shortcodes }}
+                {% endif %}
             </div>
         </div>
 
@@ -58,7 +62,11 @@
                 <p class="mt-4 text-base text-white">
                     {{ __("Souscrivez et recevez toutes nos actualité, offres exclusives et conseils santé.", "typetheme") }}
                 </p>
+                {% if function('is_language', 'fr') %}
                 {{ options.formnewsletter|shortcodes }}
+                {% else %}
+                {{ options.formnewsletter_en|shortcodes }}
+                {% endif %}
             </div>
         </div>
         <div class="mt-8 border-t border-gray-700 pt-8 flex flex-col md:flex-row items-center md:justify-between">
@@ -70,7 +78,8 @@
                 {% if options.print %}<a href="{{ options.print }}" class="text-3xl text-white hover:text-primary" target="_blank"><i class="fas fa-print"></i></a> {% endif %}
             </div>
             <p class="mt-4 text-base text-white md:mt-0 md:order-1">
-                &copy; 2021 REFERENCE MD, Inc. {{ __("Tous droits réservés. Propulsé par", 'typetheme')}} Dream-W pro.
+                &copy; 2021 REFERENCE MD, Inc. {{ __("Tous droits réservés. Propulsé par", 'typetheme')}} <a
+                        href="https://dw-digital.dreamwpro.com/">Dream-W pro</a>.
             </p>
         </div>
     </div>

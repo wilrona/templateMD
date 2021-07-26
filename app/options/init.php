@@ -22,8 +22,10 @@ $form = tr_form()->useJson()->setGroup($this->getName());
         echo $form->image('logo')->setLabel('Logo du site');
         echo $form->editor('aboutFooter')->setLabel('Description de l\'entreprise en pied de page');
         echo $form->image('imageFooter')->setLabel('Image de fond pour le formulaire du footer');
-        echo $form->text('form_footer')->setLabel('Formulaire du footer')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
-        echo $form->text('formnewsletter')->setLabel('Formulaire de newsletter')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
+        echo $form->text('form_footer')->setLabel('Formulaire du footer (FR)')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
+        echo $form->text('form_footer_en')->setLabel('Formulaire du footer (EN)')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
+        echo $form->text('formnewsletter')->setLabel('Formulaire de newsletter (FR)')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
+        echo $form->text('formnewsletter_en')->setLabel('Formulaire de newsletter (EN)')->setHelp('Inserer un shortcode de contact form 7 pour le formulaire de contact');
 
     };
 

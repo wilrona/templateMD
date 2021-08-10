@@ -89,6 +89,11 @@
   margin-bottom: 5rem;
 }
 
+.mx-20{
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
 .mb-7{
   margin-bottom: 1.75rem;
 }
@@ -125,6 +130,14 @@
   margin-top: 0.5rem;
 }
 
+.mb-8{
+  margin-bottom: 2rem;
+}
+
+.mb-10{
+  margin-bottom: 2.5rem;
+}
+
 .mt-6{
   margin-top: 1.5rem;
 }
@@ -141,8 +154,24 @@
   margin-top: 0.75rem;
 }
 
-.mb-10{
-  margin-bottom: 2.5rem;
+.mt-20{
+  margin-top: 5rem;
+}
+
+.mb-3{
+  margin-bottom: 0.75rem;
+}
+
+.mb-32{
+  margin-bottom: 8rem;
+}
+
+.\!mb-32{
+  margin-bottom: 8rem !important;
+}
+
+.\!mb-20{
+  margin-bottom: 5rem !important;
 }
 
 .block{
@@ -396,20 +425,16 @@
   --tw-bg-opacity: 0.8;
 }
 
+.p-6{
+  padding: 1.5rem;
+}
+
 .p-2{
   padding: 0.5rem;
 }
 
 .p-8{
   padding: 2rem;
-}
-
-.p-32{
-  padding: 8rem;
-}
-
-.p-6{
-  padding: 1.5rem;
 }
 
 .py-4{
@@ -457,6 +482,11 @@
   padding-bottom: 2.5rem;
 }
 
+.py-5{
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .py-12{
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -470,11 +500,6 @@
 .px-8{
   padding-left: 2rem;
   padding-right: 2rem;
-}
-
-.px-32{
-  padding-left: 8rem;
-  padding-right: 8rem;
 }
 
 .pl-44{
@@ -509,8 +534,8 @@
   padding-top: 2rem;
 }
 
-.pb-32{
-  padding-bottom: 8rem;
+.pt-10{
+  padding-top: 2.5rem;
 }
 
 .text-center{
@@ -932,6 +957,17 @@ body, html{
   transition-duration: 150ms;
 }
 
+.uk-pagination>*>*{
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.uk-pagination>*>:focus, .uk-pagination>*>:hover, .uk-pagination>.uk-active>*{
+  --tw-text-opacity: 1;
+  color: rgba(238, 217, 182, var(--tw-text-opacity));
+  text-decoration: underline;
+}
+
 @media (min-width: 768px) {
   .uk-navbar-nav>li>a, .uk-navbar-dropdown-nav>li>a{
     font-size: 1.125rem;
@@ -1044,6 +1080,10 @@ body, html{
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
+.hover\:no-underline:hover{
+  text-decoration: none;
+}
+
 .focus\:border-white:focus{
   --tw-border-opacity: 1;
   border-color: rgba(255, 255, 255, var(--tw-border-opacity));
@@ -1149,6 +1189,11 @@ body, html{
     margin-right: 0px;
   }
 
+  .md\:mx-20{
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+
   .md\:mt-0{
     margin-top: 0px;
   }
@@ -1177,6 +1222,10 @@ body, html{
     margin-bottom: 0px;
   }
 
+  .md\:mb-16{
+    margin-bottom: 4rem;
+  }
+
   .md\:ml-2{
     margin-left: 0.5rem;
   }
@@ -1185,8 +1234,24 @@ body, html{
     margin-bottom: 6rem;
   }
 
+  .md\:mt-24{
+    margin-top: 6rem;
+  }
+
+  .md\:mt-28{
+    margin-top: 7rem;
+  }
+
+  .md\:-mt-4{
+    margin-top: -1rem;
+  }
+
   .md\:block{
     display: block;
+  }
+
+  .md\:flex{
+    display: flex;
   }
 
   .md\:grid{
@@ -1195,6 +1260,14 @@ body, html{
 
   .md\:hidden{
     display: none;
+  }
+
+  .md\:h-80{
+    height: 20rem;
+  }
+
+  .md\:h-64{
+    height: 16rem;
   }
 
   .md\:h-full{
@@ -1266,14 +1339,19 @@ body, html{
     padding-bottom: 0px;
   }
 
-  .md\:px-96{
-    padding-left: 24rem;
-    padding-right: 24rem;
+  .md\:px-44{
+    padding-left: 11rem;
+    padding-right: 11rem;
   }
 
   .md\:px-16{
     padding-left: 4rem;
     padding-right: 4rem;
+  }
+
+  .md\:px-96{
+    padding-left: 24rem;
+    padding-right: 24rem;
   }
 
   .md\:px-10{
@@ -1291,21 +1369,6 @@ body, html{
     padding-right: 12rem;
   }
 
-  .md\:px-32{
-    padding-left: 8rem;
-    padding-right: 8rem;
-  }
-
-  .md\:px-4{
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .md\:px-44{
-    padding-left: 11rem;
-    padding-right: 11rem;
-  }
-
   .md\:pb-32{
     padding-bottom: 8rem;
   }
@@ -1316,6 +1379,10 @@ body, html{
 
   .md\:pr-28{
     padding-right: 7rem;
+  }
+
+  .md\:pl-64{
+    padding-left: 16rem;
   }
 
   .md\:pl-10{
@@ -1336,6 +1403,14 @@ body, html{
 
   .md\:pl-48{
     padding-left: 12rem;
+  }
+
+  .md\:pr-64{
+    padding-right: 16rem;
+  }
+
+  .md\:pr-32{
+    padding-right: 8rem;
   }
 
   .md\:text-left{
@@ -1380,6 +1455,10 @@ body, html{
 
   .md\:text-\[120px\]{
     font-size: 120px;
+  }
+
+  .md\:leading-8{
+    line-height: 2rem;
   }
 }
 
@@ -1454,6 +1533,10 @@ body, html{
 
   .\32xl\:pr-36{
     padding-right: 9rem;
+  }
+
+  .\32xl\:pl-24{
+    padding-left: 6rem;
   }
 
   .\32xl\:text-9xl{

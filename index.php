@@ -13,10 +13,16 @@
  * @since   Timber 0.1
  */
 
+global $paged;
+if (!isset($paged) || !$paged){
+    $paged = 1;
+}
+
 $context = Timber::get_context();
 
-$context['posts'] = Timber::get_posts( 
+$context['posts'] = Timber::get_posts(
 	array(
+	    'post_type' => 'post',
 		'posts_per_page' => 9,
 		'paged' => $paged
 	)

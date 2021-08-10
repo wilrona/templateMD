@@ -224,5 +224,51 @@
 
     {% endif %}
 
+    <div class="uk-section border-t border-0 border-primary border-solid">
+
+        <div class="uk-container">
+
+            <div class="md:flex uk-flex-between uk-flex-bottom">
+                <div class="font-body md:font-zapfino text-5xl md:text-[200px] md:leading-8 md:-mt-4 mb-8 md:mb-16">
+                    <span class="text-primary" uk-scrollspy="cls: uk-animation-slide-left-medium; delay: 800; repeat: true">{{ __("Notre", "typetheme") }}</span>
+                    <span class="mt-5 md:mt-32 md:block md:text-left md:pl-64" uk-scrollspy="cls: uk-animation-slide-right-medium; delay: 1000; repeat: true">{{ __("Blog", "typetheme") }}</span>
+                </div>
+                <div class="hidden md:block">
+                    <a href="{{ Post(post.link_post).link }}" class="font-body text-primary hover:text-primary mb-10 block" uk-scrollspy="cls: uk-animation-slide-right-medium; delay: 1200; repeat: true">{{ __("Tous nos articles", "typetheme") }}</a>
+                </div>
+            </div>
+
+            <div class="!mb-20">
+
+                <div class="uk-child-width-1-3@m uk-child-width-1-1" uk-grid="masonry: true"  uk-scrollspy="cls: uk-animation-slide-bottom-medium; delay:1200; repeat: true">
+                    {% for post in related %}
+                        <div class="mb-10">
+                            <a href="{{ post.link }}">
+                                {% if (loop.index % 2) %}
+                                    <img src="{% if post.thumbnail %}{{ post.thumbnail.src | resize(762, 764) }}{% else %}{{ site.theme.link }}/img/image-not-found.png{% endif %}" alt="" class="uk-width-1-1 md:h-80">
+                                {% else %}
+                                    <img src="{% if post.thumbnail %}{{ post.thumbnail.src | resize(680, 516) }}{% else %}{{ site.theme.link }}/img/image-not-found.png{% endif %}" alt="" class="uk-width-1-1 md:h-64">
+                                {% endif %}
+                            </a>
+                            <div class="my-5">
+                                <a href="{{ post.link }}" class="text-primary hover:text-primary">{{ post.title }}</a>
+                            </div>
+                            <div class="text-sm">
+                                {{ post.content | trim_word(40) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="block md:hidden py-5 text-center mt-10">
+                    <a href="{{ Post(post.link_post).link }}" class="font-body text-primary hover:text-primary hover:no-underline mb-10 border border-primary border-solid px-6 py-4">{{ __("Tous nos articles", "typetheme") }}</a>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
 
 {% endblock %}

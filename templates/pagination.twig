@@ -1,0 +1,21 @@
+<ul class="uk-pagination uk-flex-center mt-20" uk-margin>
+    {% if posts.pagination.prev %}
+        <li>
+            <a href="{{posts.pagination.prev.link}}" class="prev {{posts.pagination.prev.link|length ? '' : 'invisible'}}"><span uk-pagination-previous></span></a>
+        </li>
+    {% endif %}
+    {% for page in posts.pagination.pages %}
+
+        {% if page.link %}
+            <li class="{{page.class}}"><a href="{{page.link}}" class="{{page.class}}">{{page.title}}</a></li>
+        {% else %}
+            <li class="uk-active {{page.class}}"><span>{{page.title}}</span></li>
+        {% endif %}
+
+    {% endfor %}
+    {% if posts.pagination.next %}
+        <li>
+            <a href="{{posts.pagination.next.link}}" class="{{posts.pagination.next.link|length ? '' : 'invisible'}}"><span uk-pagination-next></span></a>
+        </li>
+    {% endif %}
+</ul>

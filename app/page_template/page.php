@@ -11,6 +11,15 @@ $box1->setCallback(function(){
 
 });
 
+$box11 = tr_meta_box('hero_page21')->setLabel('Heros');
+$box11->addScreen('page'); // updated
+$box11->setCallback(function(){
+    $form = tr_form();
+    echo $form->text('hero_text_one')->setLabel('Text un');
+    echo $form->text('hero_text_two')->setLabel('Text deux');
+
+});
+
 $box2 = tr_meta_box('more')->setLabel('Plus d\'information');
 $box2->addScreen('page'); // updated
 $box2->setCallback(function(){
@@ -73,12 +82,16 @@ $box4->setCallback(function(){
 
 });
 
-add_action('admin_head', function () use ($box1, $box2, $box3, $box4) {
+add_action('admin_head', function () use ($box1, $box2, $box3, $box4, $box11) {
     if(get_page_template_slug(get_the_ID()) !== 'page2.php' && get_page_template_slug(get_the_ID()) !== 'page3.php'):
         remove_meta_box( $box1->getId(), 'page', 'normal');
         remove_meta_box( $box2->getId(), 'page', 'normal');
         remove_meta_box( $box3->getId(), 'page', 'normal');
         remove_meta_box( $box4->getId(), 'page', 'normal');
+    endif;
+
+    if(get_page_template_slug(get_the_ID()) !== 'page4.php'):
+        remove_meta_box( $box11->getId(), 'page', 'normal');
     endif;
 });
 

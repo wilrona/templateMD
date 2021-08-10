@@ -1,20 +1,19 @@
 <?php
-/* Template Name: Home page */
 
 use Timber\Timber;
 
 $context = Timber::get_context();
-$post = new TimberPost();
+$post = Timber::query_post();
 $context['post'] = $post;
-
 
 $related_args = array(
     'post_type' => 'post',
     'posts_per_page' => 3,
     'post_status' => 'publish',
-    'lang'             => pll_current_language()
+    'post__not_in' => array( $post->ID ),
+    'orderby' => 'rand'
 );
 
 $context['related'] = Timber::get_posts($related_args);
 
-Timber::render(  'page-home.twig' , $context );
+Timber::render( array( 'single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ), $context );

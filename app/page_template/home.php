@@ -6,7 +6,7 @@ $box1->setCallback(function(){
     $form = tr_form();
     echo $form->text('heroTextOne')->setLabel('Text un');
     echo $form->text('heroTextTwo')->setLabel('Text deux');
-    echo $form->search('linkContact')->setLabel('Lien vers la page de contact')->setPostType('page');
+    echo $form->search('link_post')->setLabel('Lien vers la page des articles')->setPostType('page');
     echo "<hr/>";
     echo $form->text('linkVideo')->setLabel('Lien vers la video')->setHelp('Lien d\'une video en ligne');
 

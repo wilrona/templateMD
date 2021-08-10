@@ -35,7 +35,8 @@ $form = tr_form()->useJson()->setGroup($this->getName());
 
         echo $form->text('facebook')->setLabel('Lien vers la page Facebook');
         echo $form->text('linkedin')->setLabel('Lien vers le compte Linkedin');
-        echo $form->text('instagram')->setLabel('Lien vers le compte twitter');
+        echo $form->text('instagram')->setLabel('Lien vers le compte Instagram');
+        echo $form->text('tweeter')->setLabel('Lien vers le compte Twitter');
         echo $form->text('email')->setLabel('email de contact');
         echo $form->text('print')->setLabel('Lien pour le print');
 
